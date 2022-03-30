@@ -11,7 +11,9 @@ module.exports = {
         azul: "#0095f6",
         grisInput: "#EFEFEF",
         rosado: "#DD3170",
-        naranja: "#FA9E4C"
+        naranja: "#FA9E4C",
+        grisLetra: "#8e8e8e",
+        letraTag: "#00376b"
       }
     },
   },

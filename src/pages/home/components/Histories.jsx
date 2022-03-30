@@ -1,5 +1,5 @@
 const Histories = () => {
-  return <div>Histories</div>;
+  return <div className="h-28 center">Histories</div>;
 };
 
 export default Histories;
