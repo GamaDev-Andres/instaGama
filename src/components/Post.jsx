@@ -23,8 +23,8 @@ const Post = ({ data }) => {
             <i className="fa-solid fa-share text-2xl"></i>
           </button>
         </div>
-        <DescriptionPost />
       </div>
+      <DescriptionPost />
     </article>
   );
 };
