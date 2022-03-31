@@ -13,8 +13,10 @@ module.exports = {
         rosado: "#DD3170",
         naranja: "#FA9E4C",
         grisLetra: "#8e8e8e",
-        letraTag: "#00376b"
-      }
+        letraTag: "#00376b",
+        amarilloGd: "#ffc901",
+      },
+
     },
   },
   plugins: [],

@@ -10,3 +10,7 @@ html{
     @apply flex justify-center items-center;
   }
 }
+.gradiante-historias{
+  background: rgb(255,201,0);
+  background:linear-gradient(36deg, rgb(255,201,0) 13% , rgb(255,0,95) 73%, rgb(255,9,237) 100%)
+}

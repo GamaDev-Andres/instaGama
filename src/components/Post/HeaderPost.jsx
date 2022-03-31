@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import ButtonElipsis from './ButtonElipsis';
-import HeroImage from './HeroImage';
+import HeroImage from '../HeroImage';
 
 const HeaderPost = () => {
   return (
-    <header className="center p-4 ">
+    <header className="center p-4">
       <div className=" flex flex-grow h-full">
         <HeroImage />
         <div className="flex flex-col ml-4 text-sm">
