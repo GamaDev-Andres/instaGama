@@ -9,6 +9,9 @@ html{
   .center{
     @apply flex justify-center items-center;
   }
+  .center-col{
+    @apply flex flex-col justify-center items-center;
+  }
 }
 .gradiante-historias{
   background: rgb(255,201,0);

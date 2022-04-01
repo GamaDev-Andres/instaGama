@@ -1,5 +1,5 @@
 const PostsProfile = () => {
-  return <div>PostsProfile</div>;
+  return <div></div>;
 };
 
 export default PostsProfile;

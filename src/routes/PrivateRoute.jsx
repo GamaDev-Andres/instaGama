@@ -1,16 +1,17 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import authContext from '../contexts/authContext/authContext';
 import NavBarPhone from '../components/NavBarPhone';
 
 const PrivateRoute = () => {
   const { state } = useContext(authContext);
-  const arrNeedNavBarPhone = ['/', '/profile', '/search'];
+  const arrNeedNavBarPhone = ['/', '/search'];
+  const { user } = useParams();
   const { pathname } = useLocation();
   return state.token ? (
     <>
       <Outlet />
-      {arrNeedNavBarPhone.includes(pathname) && <NavBarPhone />}
+      {(arrNeedNavBarPhone.includes(pathname) || user) && <NavBarPhone />}
     </>
   ) : (
     <Navigate to="/login" replace />
