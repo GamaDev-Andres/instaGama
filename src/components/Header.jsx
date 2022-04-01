@@ -1,13 +1,13 @@
 import propTypes from 'prop-types';
 
-const Header = ({ text = 'InstaGama' }) => {
+const Header = ({ children }) => {
   return (
     <header className="h-11 bg-fondoClaro center sticky top-0 border-b border-bordes">
-      <h1 className="font-black italic text-xl">{text}</h1>
+      {children}
     </header>
   );
 };
 Header.propTypes = {
-  text: propTypes.string,
+  children: propTypes.element.isRequired,
 };
 export default Header;

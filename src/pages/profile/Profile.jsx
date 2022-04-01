@@ -8,7 +8,9 @@ const Profile = () => {
   const { user: nameUser } = useParams();
   return (
     <div className="flex flex-col  bg-fondoClaro">
-      <Header text={nameUser} />
+      <Header>
+        <h1 className="font-black italic text-xl">{nameUser}</h1>
+      </Header>
       <main className="flex flex-col min-h-screen max-w-[935px] mx-auto w-full p-0 md:px-4">
         <HeaderProfile />
         <DataProfile />

@@ -7,6 +7,8 @@ import Page404 from '../pages/page404/Page404';
 import GridPosts from '../pages/profile/components/GridPosts';
 import Profile from '../pages/profile/Profile';
 import Register from '../pages/register/Register';
+import GridExploreSearch from '../pages/search/components/GridExploreSearch';
+import RecentSearches from '../pages/search/components/RecentSearches';
 import Search from '../pages/search/Search';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
@@ -17,7 +19,10 @@ const AppRouter = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<Home />} />
         <Route path="/inbox" element={<Inbox />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<Search />}>
+          <Route index element={<GridExploreSearch />} />
+          <Route path="searching" element={<RecentSearches />} />
+        </Route>
         <Route path="/:user" element={<Profile />}>
           <Route index element={<GridPosts />} />
           <Route path="feed" element={<ListOfPosts />} />
