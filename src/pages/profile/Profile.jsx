@@ -1,8 +1,10 @@
 import { Outlet, useParams } from 'react-router-dom';
+import { Suspense } from 'react';
 import Header from '../../components/Header';
 import DataProfile from './components/DataProfile';
 import HeaderProfile from './components/HeaderProfile';
 import OptionsOfView from './components/OptionsOfView';
+import Spinner from '../../components/Spinner';
 
 const Profile = () => {
   const { user: nameUser } = useParams();
@@ -15,7 +17,9 @@ const Profile = () => {
         <HeaderProfile />
         <DataProfile />
         <OptionsOfView />
-        <Outlet />
+        <Suspense fallback={<Spinner />}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );

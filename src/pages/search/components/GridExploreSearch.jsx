@@ -1,6 +1,6 @@
 const GridExploreSearch = () => {
   return (
-    <div className="grid grid-cols-3 grid-rows-2 gap-[2px] md:gap-7 mt-1 grid-flow-row-dense">
+    <div className="max-w-[935px] mx-auto grid grid-cols-3 grid-rows-2 gap-[2px] md:gap-7 mt-1 md:mt-7 grid-flow-row-dense">
       {[
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
 
@@ -15,7 +15,7 @@ const GridExploreSearch = () => {
           >
             <img
               className="object-cover h-full w-full"
-              src="https://picsum.photos/100/200"
+              src="https://picsum.photos/400"
               alt="img"
             />
           </div>

@@ -6,7 +6,7 @@ import SearchProvider from './context/SearchProvider';
 const Search = () => {
   return (
     <SearchProvider>
-      <div className="bg-fondoClaro h-full">
+      <div className="bg-fondoClaro min-h-screen">
         <Header>
           <ContainerInputSearch />
         </Header>

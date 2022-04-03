@@ -10,7 +10,7 @@ const Searches = () => {
     return <Recents />;
   }
   return (
-    <div className="mt-2">
+    <div className="mt-2 max-w-[935px]">
       {[1, 2, 3, 4, 5].map((el) => (
         <ResultSearch user="andres.gama" key={el} />
       ))}
