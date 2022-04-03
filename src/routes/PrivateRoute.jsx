@@ -5,7 +5,7 @@ import NavBarPhone from '../components/NavBarPhone';
 
 const PrivateRoute = () => {
   const { state } = useContext(authContext);
-  const arrNeedNavBarPhone = ['/', '/search'];
+  const arrNeedNavBarPhone = ['/', '/search', '/search/searching'];
   const { user } = useParams();
   const { pathname } = useLocation();
   return state.token ? (

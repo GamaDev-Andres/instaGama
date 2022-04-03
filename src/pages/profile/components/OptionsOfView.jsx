@@ -1,8 +1,10 @@
 import { NavLink, useLocation } from 'react-router-dom';
+import { toArrPath } from '../../../utilities/toArrPath';
 
 const OptionsOfView = () => {
   const { pathname } = useLocation();
-  const pathFeed = pathname.split('/')[2];
+  const pathFeed = toArrPath(pathname)[2];
+
   return (
     <div className="border-t border-bordes p-4 center">
       <NavLink

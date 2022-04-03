@@ -1,11 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import useInput from '../../../hooks/useInput';
+import { useContext } from 'react';
 import { toArrPath } from '../../../utilities/toArrPath';
+import searchContext from '../context/searchContext';
 
 const ContainerInputSearch = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { reset, handleChange, input: inputSearch } = useInput();
+  const { reset, handleChange, input: inputSearch } = useContext(searchContext);
 
   const arrPathname = toArrPath(pathname);
   const isSearching = arrPathname[2];
