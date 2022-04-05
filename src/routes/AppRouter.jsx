@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { lazy } from 'react/cjs/react.development';
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 
 import Login from '../pages/login/Login';
 import Page404 from '../pages/page404/Page404';
@@ -9,6 +8,7 @@ import Searches from '../pages/search/components/Searches';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Spinner from '../components/Spinner';
+import InsideChat from '../pages/insideChat/InsideChat';
 
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
@@ -27,6 +27,7 @@ const AppRouter = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Home />} />
           <Route path="/inbox" element={<Inbox />} />
+          <Route path="/inbox/:id" element={<InsideChat />} />
           <Route path="/search" element={<Search />}>
             <Route index element={<GridExploreSearch />} />
             <Route path="searching" element={<Searches />} />
