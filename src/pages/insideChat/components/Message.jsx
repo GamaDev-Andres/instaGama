@@ -7,7 +7,7 @@ const Message = ({ own = false, text }) => {
     >
       <div
         className={`rounded-3xl p-4 ${
-          own ? 'bg-fondoGris' : 'border border-bordes'
+          own ? 'bg-[#efefef]' : 'border border-bordes'
         }`}
       >
         Lorem ipsum dolor sit amet.

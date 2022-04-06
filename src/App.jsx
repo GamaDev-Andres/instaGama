@@ -6,7 +6,7 @@ function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
-        <div className="bg-fondoGris min-h-[calc(100vh-2.75rem)] text-negro mb-11 flex flex-col">
+        <div className="bg-fondoGris min-h-[calc(100vh-2.75rem)] text-negro flex flex-col">
           <AppRouter />
         </div>
       </AuthProvider>
