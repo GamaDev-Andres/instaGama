@@ -1,18 +1,17 @@
 import propTypes from 'prop-types';
 
-const Spinner = ({ position = 'center', size = '4', fullScreen = false }) => {
-  const widthAndHeight = `w-${size} h-${size}`;
+const Spinner = ({ position = 'center', size = '7', fullScreen = false }) => {
   return (
     <div
-      className={`text-${position} m-auto ${
+      className={`text-${position}  m-auto ${
         fullScreen
-          ? 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-          : ''
+          ? 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8'
+          : 'w-4'
       }`}
     >
       <svg
         role="status"
-        className={`inline mr-2 ${widthAndHeight} text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`}
+        className={`inline mr-2 ${size} text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

@@ -8,13 +8,13 @@ const PrivateRoute = () => {
   const arrNeedNavBarPhone = ['/', '/search', '/search/searching'];
   const { user } = useParams();
   const { pathname } = useLocation();
-  return state.token ? (
+  return state.user?.token ? (
     <>
       <Outlet />
       {(arrNeedNavBarPhone.includes(pathname) || user) && <NavBarPhone />}
     </>
   ) : (
-    <Navigate to="/login" replace />
+    <Navigate to="/account/login" replace />
   );
 };
 

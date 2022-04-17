@@ -1,3 +1,3 @@
 export const authTypes = {
-  TOOGLE_TOKEN: "toogle de token"
+  SET_USER: "set user"
 }

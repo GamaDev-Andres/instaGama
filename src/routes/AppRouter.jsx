@@ -10,6 +10,8 @@ import InsideChat from '../pages/insideChat/InsideChat';
 import Account from '../pages/account/Account';
 import FormLogin from '../pages/login/FormLogin';
 import FormRegister from '../pages/register/FormRegister';
+import { useContext, useEffect, useState } from 'react/cjs/react.development';
+import authContext from '../contexts/authContext/authContext';
 
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
@@ -22,6 +24,21 @@ const GridExploreSearch = lazy(() =>
 );
 
 const AppRouter = () => {
+  const { renovarToken } = useContext(authContext);
+  const [verificandoToken, setVerificandoToken] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      renovarToken().then((res) => {
+        setVerificandoToken(false);
+      });
+    } else {
+      setVerificandoToken(false);
+    }
+  }, []);
+  if (verificandoToken) {
+    return <Spinner fullScreen={true} />;
+  }
   return (
     <Suspense fallback={<Spinner fullScreen={true} />}>
       <Routes>
