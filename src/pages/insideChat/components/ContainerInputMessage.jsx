@@ -1,13 +1,28 @@
 import { useEffect, useState } from 'react/cjs/react.development';
+// import socketContext from '../../../contexts/socketContext/socketContext';
 
 const ContainerInputMessage = () => {
   const [input, setInput] = useState('');
+  // const { socket } = useContext(socketContext);
+
   const handleInput = (e) => {
-    console.log(e.target.rows);
-    if (e.target.value.includes('\n')) {
-      console.log('salto de linea');
-    }
+    // console.log(e.target.rows);
+
+    // if (e.target.value.includes('\n')) {
+    //   console.log('salto de linea');
+    // }
+
     setInput(e.target.value);
+    // socket.emit(
+    //   'mensaje',
+    //   {
+    //     uid: '62577f8e1e2a0ab40293f484',
+    //     mensaje: 'hola desde el cliente',
+    //   },
+    //   (algo) => {
+    //     console.log('algo salio mal');
+    //   }
+    // );
   };
   useEffect(() => {
     return () => {};

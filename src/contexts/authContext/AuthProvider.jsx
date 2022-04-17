@@ -4,7 +4,7 @@ import { authTypes } from '../../types/authTypes';
 import authContext from './authContext';
 import authReducer from './authReducer';
 const initialState = {
-  token: true,
+  token: false,
 };
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);

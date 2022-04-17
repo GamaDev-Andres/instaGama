@@ -1,14 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-import Login from '../pages/login/Login';
 import Page404 from '../pages/page404/Page404';
-import Register from '../pages/register/Register';
 import Searches from '../pages/search/components/Searches';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Spinner from '../components/Spinner';
 import InsideChat from '../pages/insideChat/InsideChat';
+import Account from '../pages/account/Account';
+import FormLogin from '../pages/login/FormLogin';
+import FormRegister from '../pages/register/FormRegister';
 
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
@@ -39,8 +40,10 @@ const AppRouter = () => {
         </Route>
 
         <Route element={<PublicRoute />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/account" element={<Account />}>
+            <Route path="login" element={<FormLogin />} />
+            <Route path="register" element={<FormRegister />} />
+          </Route>
         </Route>
 
         <Route path="/*" element={<Page404 />} />
