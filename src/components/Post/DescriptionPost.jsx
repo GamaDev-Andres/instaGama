@@ -1,14 +1,12 @@
+import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Coment from './Coment';
 
-const DescriptionPost = () => {
+const DescriptionPost = ({ descripcion = '' }) => {
   const likes = 15;
   const comentarios = 13;
   const coments = [1, 2, 3, 4];
-  const texto = `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus commodi hic, possimus dicta laborum sit magni deserunt
-          laudantium est consequatur dolore nisi quisquam mollitia quos culpa
-          sequi consequuntur id ut`;
+
   return (
     <div className="text-sm pb-2 px-4">
       <div className="font-semibold">
@@ -20,9 +18,9 @@ const DescriptionPost = () => {
           <Link to="/profile" className="font-semibold">
             andres gama
           </Link>{' '}
-          {texto.length > 150 ? texto.slice(0, 150) : texto}
+          {descripcion.length > 150 ? descripcion.slice(0, 150) : descripcion}
         </span>
-        {texto.length > 150 && (
+        {descripcion.length > 150 && (
           <span>
             ...&nbsp;<button className="text-grisLetra">más</button>
           </span>
@@ -45,5 +43,7 @@ const DescriptionPost = () => {
     </div>
   );
 };
-
+DescriptionPost.propTypes = {
+  descripcion: propTypes.string,
+};
 export default DescriptionPost;

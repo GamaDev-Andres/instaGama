@@ -1,8 +1,15 @@
 import Header from '../../components/Header';
 import ListOfPosts from '../../components/ListOfPosts';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import Histories from './components/Histories';
 
 const Home = () => {
+  const {
+    state: {
+      user: { posts },
+    },
+  } = useAuthContext();
+
   return (
     <main className="min-h-screen">
       <Header>
@@ -10,7 +17,7 @@ const Home = () => {
       </Header>
       <div className="max-w-[600px] flex flex-col gap-0 sm:gap-8 mx-auto">
         <Histories />
-        <ListOfPosts />
+        <ListOfPosts arrPosts={posts} />
       </div>
     </main>
   );

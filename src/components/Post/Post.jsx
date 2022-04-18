@@ -5,11 +5,11 @@ import HeaderPost from './HeaderPost';
 const Post = ({ data }) => {
   return (
     <article className="w-full bg-fondoClaro">
-      <HeaderPost />
+      <HeaderPost autor={data?.autor} />
       <div className="flex flex-col">
         <img
           className="object-cover w-full select-none"
-          src="https://picsum.photos/500"
+          src={data.url}
           alt="img"
         />
         <div className="p-2 flex">
@@ -24,7 +24,7 @@ const Post = ({ data }) => {
           </button>
         </div>
       </div>
-      <DescriptionPost />
+      <DescriptionPost descripcion={data.descripcion} />
     </article>
   );
 };

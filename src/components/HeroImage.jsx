@@ -1,20 +1,21 @@
 import propTypes from 'prop-types';
 
-const HeroImage = ({ size = 32 }) => {
-  const tamaño = `w-[${size}px]`;
+const HeroImage = ({ className = 'w-[32px]', url }) => {
+  // const tamaño = `w-[${size}px]`;
   return (
     <div
-      className={`aspect-square center ${tamaño} bg-fondoClaro rounded-full flex-shrink-0`}
+      className={`aspect-square center ${className} bg-fondoClaro rounded-full flex-shrink-0`}
     >
       <img
         className="rounded-full select-none object-cover w-full m-[2px]"
-        src={`https://picsum.photos/${size}`}
+        src={url || 'https://picsum.photos/500'}
         alt="img"
       />
     </div>
   );
 };
 HeroImage.propTypes = {
-  size: propTypes.number,
+  className: propTypes.string,
+  url: propTypes.string,
 };
 export default HeroImage;

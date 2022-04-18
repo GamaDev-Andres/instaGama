@@ -8,7 +8,7 @@ const HeaderProfile = () => {
     <header className="py-2 px-4 flex flex-col gap-8 border-b border-bordes">
       <div className="flex justify-start gap-4">
         <button>
-          <HeroImage size={77} />
+          <HeroImage className="w-[77px]" />
         </button>
         <div className="flex flex-col justify-center items-start flex-grow mr-4 w-full min-w-0">
           <h2 className="w-full max-w-full text-[28px] font-thin font-sans block overflow-hidden text-ellipsis whitespace-nowrap">

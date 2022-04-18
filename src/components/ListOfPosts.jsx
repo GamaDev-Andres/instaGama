@@ -1,13 +1,17 @@
+import propTypes from 'prop-types';
 import Post from './Post/Post';
 
-const ListOfPosts = () => {
+const ListOfPosts = ({ arrPosts = [] }) => {
+  console.log(arrPosts);
   return (
     <div className="flex-grow flex flex-col gap-4 sm:gap-8">
-      {[1, 2, 3, 4, 5, 6].map((post) => (
-        <Post data={post} key={post} />
+      {arrPosts?.map((post) => (
+        <Post data={post} key={post._id} />
       ))}
     </div>
   );
 };
-
+ListOfPosts.propTypes = {
+  arrPosts: propTypes.array,
+};
 export default ListOfPosts;
