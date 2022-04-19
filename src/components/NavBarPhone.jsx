@@ -4,7 +4,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 const NavBarPhone = () => {
   const {
     state: {
-      user: { name },
+      user: { userName },
     },
   } = useAuthContext();
 
@@ -23,7 +23,7 @@ const NavBarPhone = () => {
         <Link className="center flex-grow " to="/inbox">
           <i className="fa-solid fa-message w-6 h-6 text-xl center"></i>{' '}
         </Link>
-        <Link className="center flex-grow " to={`/${name}`}>
+        <Link className="center flex-grow " to={`/${userName}`}>
           <i className="fa-solid fa-user w-6 h-6 text-xl center"></i>
         </Link>
       </div>

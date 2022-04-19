@@ -1,14 +1,15 @@
 import HeroImage from '../../../components/HeroImage';
 import { useParams } from 'react-router-dom';
+import propTypes from 'prop-types';
 
-const HeaderProfile = () => {
+const HeaderProfile = ({ foto, name }) => {
   const { user: nameUser } = useParams();
 
   return (
     <header className="py-2 px-4 flex flex-col gap-8 border-b border-bordes">
       <div className="flex justify-start gap-4">
         <button>
-          <HeroImage className="w-[77px]" />
+          <HeroImage url={foto} className="w-[77px]" />
         </button>
         <div className="flex flex-col justify-center items-start flex-grow mr-4 w-full min-w-0">
           <h2 className="w-full max-w-full text-[28px] font-thin font-sans block overflow-hidden text-ellipsis whitespace-nowrap">
@@ -20,10 +21,13 @@ const HeaderProfile = () => {
         </div>
       </div>
       <div className="pb-2">
-        <span className="font-semibold font-sans">Andres Gama</span>
+        <span className="font-semibold font-sans">{name}</span>
       </div>
     </header>
   );
 };
-
+HeaderProfile.propTypes = {
+  foto: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
+};
 export default HeaderProfile;

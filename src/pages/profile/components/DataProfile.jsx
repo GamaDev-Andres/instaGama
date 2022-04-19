@@ -1,8 +1,13 @@
-const DataProfile = () => {
+import propTypes from 'prop-types';
+
+const DataProfile = ({ posts, followers, following }) => {
+  // const { state } = useAuthContext();
+  // const { following, followers, posts } =
+
   const data = [
-    { type: 'publicaciones', number: 10 },
-    { type: 'seguidores', number: 125 },
-    { type: 'seguidos', number: 345 },
+    { type: 'publicaciones', number: posts?.length },
+    { type: 'seguidores', number: followers?.length },
+    { type: 'seguidos', number: following?.length },
   ];
   return (
     <div className="center py-3">
@@ -18,5 +23,9 @@ const DataProfile = () => {
     </div>
   );
 };
-
+DataProfile.propTypes = {
+  posts: propTypes.array.isRequired,
+  followers: propTypes.array.isRequired,
+  following: propTypes.array.isRequired,
+};
 export default DataProfile;

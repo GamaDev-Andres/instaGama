@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
 import Spinner from '../../components/Spinner';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import useForm from '../../hooks/useForm';
+import useInput from '../../hooks/useInput';
 import { isEmail, isValidPassword } from '../../utilities/validatorsForms';
 
 const FormRegister = () => {
@@ -14,19 +14,31 @@ const FormRegister = () => {
     handleSubmit: submitHook,
     setError,
     handleChange,
-  } = useForm({ email: '', name: '', password: '' }, handleRegister);
+  } = useForm(
+    { email: '', name: '', password: '', userName: '' },
+    handleRegister
+  );
 
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { handleChange: handleChangeConfirmPassword, input: confirmPassword } =
+    useInput();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { password, email, name } = dataForm;
+    const { password, email, name, userName } = dataForm;
     if (!isEmail(email)) {
       setError('Formato de email incorrecto');
       return;
     }
-    if (name?.length < 4) {
+    if (name.trim()?.length < 4) {
       setError('Nombre demasiado corto,minimo 4 caracteres');
+      return;
+    }
+    if (userName.trim().includes(' ')) {
+      setError('userName no debe tener espacios en blanco');
+      return;
+    }
+    if (userName.trim()?.length < 3 || userName.trim()?.length > 12) {
+      setError('userName debe estar entre 3 y 12 caracteres');
       return;
     }
     if (!isValidPassword(password)) {
@@ -56,6 +68,15 @@ const FormRegister = () => {
       />
       <input
         onChange={handleChange}
+        value={dataForm.userName}
+        name="userName"
+        placeholder="username"
+        autoComplete="username"
+        className="focus:border-gray-400 placeholder:text-xs bg-fondoGris w-full border border-bordes outline-none p-2"
+        type="text"
+      />
+      <input
+        onChange={handleChange}
         value={dataForm.name}
         name="name"
         placeholder="Nombre"
@@ -72,7 +93,7 @@ const FormRegister = () => {
         type="password"
       />
       <input
-        onChange={(e) => setConfirmPassword(e.target.value)}
+        onChange={handleChangeConfirmPassword}
         value={confirmPassword}
         name="confirmPassword"
         placeholder="Confirmar contraseña"

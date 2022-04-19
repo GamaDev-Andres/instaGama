@@ -18,14 +18,17 @@ const useForm = (dataInitial, serviceSubmit) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const msg = await serviceSubmit(dataForm);
-    if (isMounted.current) {
+    try {
+      setLoading(true);
+      console.log(dataForm);
+      const msg = await serviceSubmit(dataForm);
       setLoading(false);
-    }
-
-    if (msg) {
-      setError(msg);
+      if (msg) {
+        setError(msg);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
   return { handleChange, handleSubmit, setError, loading, error, dataForm };

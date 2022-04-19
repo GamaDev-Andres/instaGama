@@ -1,13 +1,10 @@
 import propTypes from 'prop-types';
 
 const HeroImage = ({ className = 'w-[32px]', url }) => {
-  // const tamaño = `w-[${size}px]`;
   return (
-    <div
-      className={`aspect-square center ${className} bg-fondoClaro rounded-full flex-shrink-0`}
-    >
+    <div className={`aspect-square  bg-fondoClaro rounded-full `}>
       <img
-        className="rounded-full select-none object-cover w-full m-[2px]"
+        className={`rounded-full select-none object-cover w-full m-[2px] ${className}`}
         src={url || 'https://picsum.photos/500'}
         alt="img"
       />
