@@ -21,7 +21,9 @@ const HeaderProfile = ({ foto, name }) => {
         </div>
       </div>
       <div className="pb-2">
-        <span className="font-semibold font-sans">{name}</span>
+        <span className="font-semibold font-sans block overflow-hidden text-ellipsis whitespace-nowrap">
+          {name}
+        </span>
       </div>
     </header>
   );

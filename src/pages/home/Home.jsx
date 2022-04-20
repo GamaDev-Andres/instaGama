@@ -15,7 +15,7 @@ const Home = () => {
       <Header>
         <h1 className="font-black italic text-xl">InstaGama</h1>
       </Header>
-      <div className="max-w-[600px] flex flex-col gap-0 sm:gap-8 mx-auto">
+      <div className="max-w-[600px] min-h-[calc(100vh-45px)] flex flex-col gap-0 sm:gap-8 mx-auto">
         <Histories />
         <ListOfPosts arrPosts={posts} />
       </div>
