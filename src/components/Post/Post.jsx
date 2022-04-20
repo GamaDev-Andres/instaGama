@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import ActionsPost from './ActionsPost';
 import DescriptionPost from './DescriptionPost';
 import HeaderPost from './HeaderPost';
 
@@ -12,19 +13,9 @@ const Post = ({ data }) => {
           src={data.url}
           alt="img"
         />
-        <div className="p-2 flex">
-          <button className="center w-11 h-11">
-            <i className="fa-solid fa-heart text-2xl"></i>
-          </button>
-          <button className="center w-11 h-11">
-            <i className="fa-solid fa-comment text-2xl"></i>
-          </button>
-          <button className="center w-11 h-11">
-            <i className="fa-solid fa-share text-2xl"></i>
-          </button>
-        </div>
+        <ActionsPost idPost={data._id} />
       </div>
-      <DescriptionPost descripcion={data.descripcion} />
+      <DescriptionPost likes={data.likes} descripcion={data.descripcion} />
     </article>
   );
 };

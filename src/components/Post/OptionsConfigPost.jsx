@@ -2,7 +2,7 @@ import propTypes from 'prop-types';
 
 const OptionsConfigPost = ({ handleCloseModal }) => {
   return (
-    <div className="flex flex-col  ">
+    <div className="flex flex-col">
       <button className="p-2 h-12 text-center text-sm border-b border-bordes font-semibold text-red-600">
         Eliminar
       </button>

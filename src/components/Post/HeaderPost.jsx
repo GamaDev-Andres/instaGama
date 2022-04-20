@@ -9,7 +9,7 @@ const HeaderPost = ({ autor }) => {
       <div className=" flex flex-grow h-full">
         <HeroImage url={autor.foto} />
         <div className="flex flex-col ml-4 text-sm">
-          <Link className="font-semibold" to="/">
+          <Link className="font-semibold" to={`/${autor.userName}`}>
             {autor.name}
           </Link>
           <p className="text-grisLetra">villavicencio-colombia</p>

@@ -98,12 +98,43 @@ const AuthProvider = ({ children }) => {
 
   const getHistoriesUser = async (uid) => {
     const urlPeticion = url + '/api/history/' + uid;
-    const response = await customFetch(urlPeticion, 'GET');
-    if (response?.msg || response?.errors) {
-      return response?.msg || response?.errors[0]?.msg;
+    try {
+      const response = await customFetch(urlPeticion, 'GET');
+      if (response?.msg || response?.errors) {
+        return response?.msg || response?.errors[0]?.msg;
+      }
+      return response?.historias;
+    } catch (error) {
+      console.log(error);
     }
-    return response?.historias;
   };
+
+  const createPost = useCallback(async (data) => {
+    const urlPeticion = url + '/api/post/create';
+    try {
+      const response = await customFetch(urlPeticion, 'POST', data);
+      if (response?.msg || response?.errors) {
+        return response?.msg || response?.errors[0]?.msg;
+      }
+      return response?.post;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  const toogleLikePost = useCallback(async (idPost) => {
+    const urlPeticion = url + '/api/like';
+    try {
+      const response = await customFetch(urlPeticion, 'POST', { idPost });
+      if (response?.msg || response?.errors) {
+        return response?.msg || response?.errors[0]?.msg;
+      }
+      console.log(response);
+      //  return response?.post;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   const getHistoriesOfFollowing = useCallback(async () => {
     const historiesOfFollowing = await Promise.all(
       state?.user?.following.map((el) => getHistoriesUser(el))
@@ -121,13 +152,24 @@ const AuthProvider = ({ children }) => {
     () => ({
       state,
       handleLogin,
+      createPost,
+      toogleLikePost,
       handleRegister,
       renovarToken,
       getHistoriesOfFollowing,
       logOut,
       getOneUser,
     }),
-    [state, handleLogin, handleRegister, renovarToken, logOut, getOneUser]
+    [
+      state,
+      handleLogin,
+      createPost,
+      toogleLikePost,
+      handleRegister,
+      renovarToken,
+      logOut,
+      getOneUser,
+    ]
   );
 
   return (

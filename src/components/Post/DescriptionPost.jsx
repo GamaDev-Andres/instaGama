@@ -2,15 +2,14 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Coment from './Coment';
 
-const DescriptionPost = ({ descripcion = '' }) => {
-  const likes = 15;
+const DescriptionPost = ({ likes, descripcion = '' }) => {
   const comentarios = 13;
   const coments = [1, 2, 3, 4];
 
   return (
     <div className="text-sm pb-2 px-4">
       <div className="font-semibold">
-        <span>{likes}</span>
+        <span>{likes.length}</span>
         {likes && ` Me gusta${likes > 1 ? 's' : ''}`}
       </div>
       <div>
@@ -45,5 +44,6 @@ const DescriptionPost = ({ descripcion = '' }) => {
 };
 DescriptionPost.propTypes = {
   descripcion: propTypes.string,
+  likes: propTypes.array.isRequired,
 };
 export default DescriptionPost;
