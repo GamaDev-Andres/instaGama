@@ -1,16 +1,18 @@
 import propTypes from 'prop-types';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
-const ActionsPost = ({ idPost }) => {
+const ActionsPost = ({ idPost, haveMyLike }) => {
   const { toogleLikePost } = useAuthContext();
 
   const handleLike = async () => {
     await toogleLikePost(idPost);
   };
-
   return (
     <div className="p-2 flex">
-      <button onClick={handleLike} className="center w-11 h-11">
+      <button
+        onClick={handleLike}
+        className={`center w-11 h-11 ${haveMyLike ? 'text-red-600' : ''}`}
+      >
         <i className="fa-solid fa-heart text-2xl"></i>
       </button>
       <button className="center w-11 h-11">
@@ -24,6 +26,7 @@ const ActionsPost = ({ idPost }) => {
 };
 ActionsPost.propTypes = {
   idPost: propTypes.string.isRequired,
+  haveMyLike: propTypes.bool.isRequired,
 };
 
 export default ActionsPost;

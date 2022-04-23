@@ -1,25 +1,21 @@
-import propTypes from 'prop-types';
 import ActionsPost from './ActionsPost';
 import DescriptionPost from './DescriptionPost';
 import HeaderPost from './HeaderPost';
+import usePost from './hook/usePost';
 
-const Post = ({ data }) => {
+const Post = () => {
+  const { haveMyLike, url, _id, likes, descripcion } = usePost();
+  // corregir bug-
   return (
     <article className="w-full bg-fondoClaro">
-      <HeaderPost autor={data?.autor} />
+      <HeaderPost />
       <div className="flex flex-col">
-        <img
-          className="object-cover w-full select-none"
-          src={data.url}
-          alt="img"
-        />
-        <ActionsPost idPost={data._id} />
+        <img className="object-cover w-full select-none" src={url} alt="img" />
+        <ActionsPost idPost={_id} haveMyLike={haveMyLike} />
       </div>
-      <DescriptionPost likes={data.likes} descripcion={data.descripcion} />
+      <DescriptionPost likes={likes} descripcion={descripcion} />
     </article>
   );
 };
-Post.propTypes = {
-  data: propTypes.any.isRequired,
-};
+
 export default Post;

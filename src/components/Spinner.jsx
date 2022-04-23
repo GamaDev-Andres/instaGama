@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 
-const Spinner = ({ position = 'center', size = '7', fullScreen = false }) => {
+const Spinner = ({ position = 'center', fullScreen = false }) => {
   return (
     <div
       className={`text-${position}  m-auto ${
@@ -11,7 +11,7 @@ const Spinner = ({ position = 'center', size = '7', fullScreen = false }) => {
     >
       <svg
         role="status"
-        className={`inline mr-2 ${size} text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`}
+        className={`inline mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,6 @@ const Spinner = ({ position = 'center', size = '7', fullScreen = false }) => {
 };
 Spinner.propTypes = {
   position: propTypes.string,
-  size: propTypes.string,
   fullScreen: propTypes.bool,
 };
 

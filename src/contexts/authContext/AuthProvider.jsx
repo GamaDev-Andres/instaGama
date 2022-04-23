@@ -128,24 +128,59 @@ const AuthProvider = ({ children }) => {
       if (response?.msg || response?.errors) {
         return response?.msg || response?.errors[0]?.msg;
       }
-      console.log(response);
-      //  return response?.post;
+      if (response.post) {
+        dispatch({ type: authTypes.SET_POST, payload: response.post });
+      }
     } catch (error) {
       console.log(error);
     }
   });
 
   const getHistoriesOfFollowing = useCallback(async () => {
-    const historiesOfFollowing = await Promise.all(
-      state?.user?.following.map((el) => getHistoriesUser(el))
-    );
-    return historiesOfFollowing;
+    try {
+      const historiesOfFollowing = await Promise.all(
+        state?.user?.following.map((el) => getHistoriesUser(el))
+      );
+      return historiesOfFollowing;
+    } catch (error) {
+      console.log(error);
+    }
   }, [state]);
 
   const getOneUser = useCallback(async (userName) => {
     const urlPeticion = url + '/api/users/' + userName;
-    const user = await customFetch(urlPeticion, 'GET');
-    return user;
+    try {
+      const response = await customFetch(urlPeticion, 'GET');
+      if (response?.msg || response?.errors) {
+        throw new Error(response?.msg || response?.errors[0].msg);
+      }
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  const deletePostState = useCallback((idPost) => {
+    dispatch({ type: authTypes.DELETE_POST, payload: idPost });
+  });
+
+  const updatePost = useCallback(async (idPost, data) => {
+    const urlPeticion = url + '/api/post/' + idPost;
+
+    try {
+      const response = await customFetch(urlPeticion, 'PUT', {
+        descripcion: data,
+      });
+      if (response?.msg || response?.errors) {
+        throw new Error(response?.msg || response?.errors[0].msg);
+      }
+      dispatch({
+        type: authTypes.UPDATE_POST,
+        payload: { id: idPost, descripcion: data },
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   const contexValue = useMemo(
@@ -154,6 +189,8 @@ const AuthProvider = ({ children }) => {
       handleLogin,
       createPost,
       toogleLikePost,
+      deletePostState,
+      updatePost,
       handleRegister,
       renovarToken,
       getHistoriesOfFollowing,
@@ -165,6 +202,8 @@ const AuthProvider = ({ children }) => {
       handleLogin,
       createPost,
       toogleLikePost,
+      deletePostState,
+      updatePost,
       handleRegister,
       renovarToken,
       logOut,

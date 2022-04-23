@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import ButtonElipsis from './ButtonElipsis';
 import HeroImage from '../HeroImage';
-import propTypes from 'prop-types';
+import useUser from '../../hooks/useUser';
+import usePost from './hook/usePost';
 
-const HeaderPost = ({ autor }) => {
+const HeaderPost = () => {
+  const { id } = useUser();
+  const { autor } = usePost();
   return (
     <header className="center p-4">
       <div className=" flex flex-grow h-full">
@@ -15,13 +18,13 @@ const HeaderPost = ({ autor }) => {
           <p className="text-grisLetra">villavicencio-colombia</p>
         </div>
       </div>
-      <div className="center">
-        <ButtonElipsis />
-      </div>
+      {autor._id === id && (
+        <div className="center">
+          <ButtonElipsis />
+        </div>
+      )}
     </header>
   );
 };
-HeaderPost.propTypes = {
-  autor: propTypes.object.isRequired,
-};
+
 export default HeaderPost;

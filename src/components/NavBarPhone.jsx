@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react/cjs/react.development';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Modal from './Modal';
-import ModalCreatePost from './Post/ModalCreatePost';
+import ModalFormPost from './Post/ModalFormPost';
 
 const NavBarPhone = () => {
   const {
@@ -44,7 +44,7 @@ const NavBarPhone = () => {
       </div>
       {isOpenModal && (
         <Modal closeModal={handleCloseModal}>
-          <ModalCreatePost handleCloseModal={handleCloseModal} />
+          <ModalFormPost handleCloseModal={handleCloseModal} />
         </Modal>
       )}
     </nav>

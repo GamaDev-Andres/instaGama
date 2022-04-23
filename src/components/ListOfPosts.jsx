@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import { useOutletContext } from 'react-router-dom';
+import PostProvider from './Post/context/PostProvider';
 import Post from './Post/Post';
 
 const ListOfPosts = ({ arrPosts = [] }) => {
@@ -13,7 +14,11 @@ const ListOfPosts = ({ arrPosts = [] }) => {
           personas o subir contenido.
         </div>
       ) : (
-        arrToRender?.map((post) => <Post data={post} key={post._id} />)
+        arrToRender?.map((post) => (
+          <PostProvider data={post} key={post._id}>
+            <Post />
+          </PostProvider>
+        ))
       )}
     </div>
   );
