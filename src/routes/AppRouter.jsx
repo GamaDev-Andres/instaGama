@@ -12,10 +12,11 @@ import FormLogin from '../pages/login/FormLogin';
 import FormRegister from '../pages/register/FormRegister';
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import authContext from '../contexts/authContext/authContext';
+import ProfileProvider from '../pages/profile/context/ProfileProvider';
 
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
-const Profile = lazy(() => import('../pages/profile/Profile'));
+
 const Search = lazy(() => import('../pages/search/Search'));
 const ListOfPosts = lazy(() => import('../components/ListOfPosts'));
 const GridPosts = lazy(() => import('../pages/profile/components/GridPosts'));
@@ -50,7 +51,7 @@ const AppRouter = () => {
             <Route index element={<GridExploreSearch />} />
             <Route path="searching" element={<Searches />} />
           </Route>
-          <Route path="/:user" element={<Profile />}>
+          <Route path="/:user" element={<ProfileProvider />}>
             <Route index element={<GridPosts />} />
             <Route path="feed" element={<ListOfPosts />} />
           </Route>

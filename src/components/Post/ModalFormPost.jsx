@@ -2,9 +2,12 @@ import propTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { usePostMethods } from '../../hooks/usePostMethods';
+// import { usePostMethods } from '../../hooks/usePostMethods';
 import useUpdateCloudinary from '../../hooks/useUpdateCloudinary';
 import HeroImage from '../HeroImage';
 import Spinner from '../Spinner';
+import usePost from './hook/usePost';
 
 const ModalFormPost = ({
   handleCloseModal,
@@ -23,9 +26,9 @@ const ModalFormPost = ({
     state: {
       user: { name, foto },
     },
-    updatePost,
-    createPost,
   } = useAuthContext();
+  const { createPost } = usePostMethods();
+  const { updatePost } = usePost();
 
   useEffect(() => {
     if (edit && dataEdit.descripcion) {

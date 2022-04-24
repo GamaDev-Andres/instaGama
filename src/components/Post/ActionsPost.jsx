@@ -1,8 +1,8 @@
 import propTypes from 'prop-types';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { usePostMethods } from '../../hooks/usePostMethods';
 
 const ActionsPost = ({ idPost, haveMyLike }) => {
-  const { toogleLikePost } = useAuthContext();
+  const { toogleLikePost } = usePostMethods();
 
   const handleLike = async () => {
     await toogleLikePost(idPost);

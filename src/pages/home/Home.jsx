@@ -1,14 +1,29 @@
+import { useCallback, useEffect, useState } from 'react/cjs/react.development';
 import Header from '../../components/Header';
 import ListOfPosts from '../../components/ListOfPosts';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import Spinner from '../../components/Spinner';
+import { getPostsOfFollowing } from '../../services/getPostsOfFollowing';
 import Histories from './components/Histories';
 
 const Home = () => {
-  const {
-    state: {
-      user: { posts },
+  const [posts, setPosts] = useState(null);
+  useEffect(() => {
+    getPostsOfFollowing().then((res) => {
+      console.log(res.posts);
+      setPosts(res.posts);
+    });
+  }, []);
+
+  const handleUpdatePost = useCallback(
+    (idPost, data) => {
+      setPosts(
+        posts.map((el) =>
+          el._id === idPost ? { ...el, descripcion: data } : el
+        )
+      );
     },
-  } = useAuthContext();
+    [posts]
+  );
 
   return (
     <main className="min-h-screen">
@@ -17,7 +32,11 @@ const Home = () => {
       </Header>
       <div className="max-w-[600px] min-h-[calc(100vh-45px)] flex flex-col gap-0 sm:gap-8 mx-auto">
         <Histories />
-        <ListOfPosts arrPosts={posts} />
+        {!posts ? (
+          <Spinner fullScreen={true} />
+        ) : (
+          <ListOfPosts arrPosts={posts} handleUpdatePost={handleUpdatePost} />
+        )}
       </div>
     </main>
   );

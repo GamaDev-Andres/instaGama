@@ -1,37 +1,15 @@
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { Suspense, useEffect, useState, useRef } from 'react';
-
 import Header from '../../components/Header';
 import DataProfile from './components/DataProfile';
 import HeaderProfile from './components/HeaderProfile';
 import OptionsOfView from './components/OptionsOfView';
-import Spinner from '../../components/Spinner';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import useProfile from './hook/useProfile';
+import propTypes from 'prop-types';
 
-const Profile = () => {
-  const { user: userName } = useParams();
-  const { logOut, getOneUser } = useAuthContext();
-  const [userProfile, setUserProfile] = useState(null);
-  const isMounted = useRef(true);
-  const navigate = useNavigate();
+const Profile = ({ children }) => {
+  const { logOut } = useAuthContext();
+  const { state: userProfile } = useProfile();
 
-  useEffect(() => {
-    getOneUser(userName).then((res) => {
-      if (!res?.usuario) {
-        navigate('/');
-        return;
-      }
-      if (isMounted.current) {
-        setUserProfile(res.usuario);
-      }
-    });
-    return () => {
-      isMounted.current = false;
-    };
-  }, []);
-  if (!userProfile) {
-    return <Spinner fullScreen={true} />;
-  }
   return (
     <div className="flex flex-col  bg-fondoClaro">
       <Header>
@@ -42,7 +20,7 @@ const Profile = () => {
           >
             <i className="fa-solid fa-arrow-right-from-bracket"></i>
           </button>
-          <h1 className="font-black italic text-xl">{userName}</h1>
+          <h1 className="font-black italic text-xl">{userProfile?.userName}</h1>
         </div>
       </Header>
       <main className="flex flex-col min-h-screen max-w-[935px] mx-auto w-full p-0 md:px-4">
@@ -53,12 +31,12 @@ const Profile = () => {
           posts={userProfile.posts}
         />
         <OptionsOfView />
-        <Suspense fallback={<Spinner />}>
-          <Outlet context={{ posts: userProfile?.posts }} />
-        </Suspense>
+        {children}
       </main>
     </div>
   );
 };
-
+Profile.propTypes = {
+  children: propTypes.any,
+};
 export default Profile;

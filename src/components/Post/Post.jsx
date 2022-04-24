@@ -5,7 +5,6 @@ import usePost from './hook/usePost';
 
 const Post = () => {
   const { haveMyLike, url, _id, likes, descripcion } = usePost();
-  // corregir bug-
   return (
     <article className="w-full bg-fondoClaro">
       <HeaderPost />

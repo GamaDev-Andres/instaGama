@@ -109,33 +109,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const createPost = useCallback(async (data) => {
-    const urlPeticion = url + '/api/post/create';
-    try {
-      const response = await customFetch(urlPeticion, 'POST', data);
-      if (response?.msg || response?.errors) {
-        return response?.msg || response?.errors[0]?.msg;
-      }
-      return response?.post;
-    } catch (error) {
-      console.log(error);
-    }
-  });
-  const toogleLikePost = useCallback(async (idPost) => {
-    const urlPeticion = url + '/api/like';
-    try {
-      const response = await customFetch(urlPeticion, 'POST', { idPost });
-      if (response?.msg || response?.errors) {
-        return response?.msg || response?.errors[0]?.msg;
-      }
-      if (response.post) {
-        dispatch({ type: authTypes.SET_POST, payload: response.post });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
   const getHistoriesOfFollowing = useCallback(async () => {
     try {
       const historiesOfFollowing = await Promise.all(
@@ -147,68 +120,16 @@ const AuthProvider = ({ children }) => {
     }
   }, [state]);
 
-  const getOneUser = useCallback(async (userName) => {
-    const urlPeticion = url + '/api/users/' + userName;
-    try {
-      const response = await customFetch(urlPeticion, 'GET');
-      if (response?.msg || response?.errors) {
-        throw new Error(response?.msg || response?.errors[0].msg);
-      }
-      return response;
-    } catch (error) {
-      console.log(error);
-    }
-  });
-  const deletePostState = useCallback((idPost) => {
-    dispatch({ type: authTypes.DELETE_POST, payload: idPost });
-  });
-
-  const updatePost = useCallback(async (idPost, data) => {
-    const urlPeticion = url + '/api/post/' + idPost;
-
-    try {
-      const response = await customFetch(urlPeticion, 'PUT', {
-        descripcion: data,
-      });
-      if (response?.msg || response?.errors) {
-        throw new Error(response?.msg || response?.errors[0].msg);
-      }
-      dispatch({
-        type: authTypes.UPDATE_POST,
-        payload: { id: idPost, descripcion: data },
-      });
-      return response;
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
   const contexValue = useMemo(
     () => ({
       state,
       handleLogin,
-      createPost,
-      toogleLikePost,
-      deletePostState,
-      updatePost,
       handleRegister,
       renovarToken,
       getHistoriesOfFollowing,
       logOut,
-      getOneUser,
     }),
-    [
-      state,
-      handleLogin,
-      createPost,
-      toogleLikePost,
-      deletePostState,
-      updatePost,
-      handleRegister,
-      renovarToken,
-      logOut,
-      getOneUser,
-    ]
+    [state, handleLogin, handleRegister, renovarToken, logOut]
   );
 
   return (

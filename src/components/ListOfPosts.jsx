@@ -1,11 +1,14 @@
 import propTypes from 'prop-types';
 import { useOutletContext } from 'react-router-dom';
+import useProfile from '../pages/profile/hook/useProfile';
 import PostProvider from './Post/context/PostProvider';
 import Post from './Post/Post';
 
-const ListOfPosts = ({ arrPosts = [] }) => {
+const ListOfPosts = ({ arrPosts = [], handleUpdatePost }) => {
   const outletContext = useOutletContext();
   const arrToRender = outletContext?.posts || arrPosts;
+  const contextProfile = useProfile();
+
   return (
     <div className="flex-grow flex flex-col gap-4 sm:gap-8 relative">
       {arrToRender.length === 0 ? (
@@ -15,7 +18,11 @@ const ListOfPosts = ({ arrPosts = [] }) => {
         </div>
       ) : (
         arrToRender?.map((post) => (
-          <PostProvider data={post} key={post._id}>
+          <PostProvider
+            data={post}
+            updatePost={handleUpdatePost || contextProfile.updatePost}
+            key={post._id}
+          >
             <Post />
           </PostProvider>
         ))
@@ -25,5 +32,6 @@ const ListOfPosts = ({ arrPosts = [] }) => {
 };
 ListOfPosts.propTypes = {
   arrPosts: propTypes.array,
+  handleUpdatePost: propTypes.func,
 };
 export default ListOfPosts;
