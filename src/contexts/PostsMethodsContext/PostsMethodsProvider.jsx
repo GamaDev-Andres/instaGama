@@ -23,11 +23,9 @@ const PostsMethodsProvider = ({ children }) => {
     try {
       const response = await customFetch(urlPeticion, 'POST', { idPost });
       if (response?.msg || response?.errors) {
-        return response?.msg || response?.errors[0]?.msg;
+        throw new Error(response?.msg || response?.errors[0]?.msg);
       }
-      if (response.post) {
-        // dispatch({ type: authTypes.SET_POST, payload: response.post });
-      }
+      return response.post;
     } catch (error) {
       console.log(error);
     }
@@ -42,10 +40,7 @@ const PostsMethodsProvider = ({ children }) => {
       if (response?.msg || response?.errors) {
         throw new Error(response?.msg || response?.errors[0].msg);
       }
-      // dispatch({
-      //   type: authTypes.UPDATE_POST,
-      //   payload: { id: idPost, descripcion: data },
-      // });
+
       return response;
     } catch (error) {
       console.log(error);

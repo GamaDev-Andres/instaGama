@@ -46,6 +46,7 @@ const FormLogin = () => {
         onChange={handleChange}
         value={dataForm.passowrd}
         name="password"
+        autoComplete="current-password"
         placeholder="Contraseña"
         className="focus:border-gray-400 placeholder:text-xs bg-fondoGris w-full border border-bordes outline-none p-2"
         type="password"

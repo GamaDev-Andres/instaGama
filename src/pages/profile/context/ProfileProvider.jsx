@@ -3,7 +3,6 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Suspense, useEffect, useRef } from 'react/cjs/react.development';
 import Spinner from '../../../components/Spinner';
 import { customFetch } from '../../../services/customFetch';
-import { authTypes } from '../../../types/authTypes';
 
 import Profile from '../Profile';
 import { profileTypes } from '../types/profileTypes';
@@ -53,31 +52,8 @@ const ProfileProvider = () => {
     }
   };
 
-  const createPost = useCallback(async (data) => {
-    const urlPeticion = url + '/api/post/create';
-    try {
-      const response = await customFetch(urlPeticion, 'POST', data);
-      if (response?.msg || response?.errors) {
-        return response?.msg || response?.errors[0]?.msg;
-      }
-      return response?.post;
-    } catch (error) {
-      console.log(error);
-    }
-  });
-  const toogleLikePost = useCallback(async (idPost) => {
-    const urlPeticion = url + '/api/like';
-    try {
-      const response = await customFetch(urlPeticion, 'POST', { idPost });
-      if (response?.msg || response?.errors) {
-        return response?.msg || response?.errors[0]?.msg;
-      }
-      if (response.post) {
-        dispatch({ type: authTypes.SET_POST, payload: response.post });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const toogleLikePost = useCallback((post) => {
+    dispatch({ type: profileTypes.SET_POST, payload: post });
   });
 
   const getHistoriesOfFollowing = useCallback(async () => {
@@ -104,7 +80,7 @@ const ProfileProvider = () => {
     }
   });
   const deletePostState = useCallback((idPost) => {
-    dispatch({ type: authTypes.DELETE_POST, payload: idPost });
+    dispatch({ type: profileTypes.DELETE_POST, payload: idPost });
   });
 
   const updatePost = useCallback((idPost, data) => {
@@ -117,14 +93,13 @@ const ProfileProvider = () => {
   const contexValue = useMemo(
     () => ({
       state,
-      createPost,
       toogleLikePost,
       deletePostState,
       updatePost,
       getHistoriesOfFollowing,
       getOneUser,
     }),
-    [state, createPost, toogleLikePost, deletePostState, updatePost, getOneUser]
+    [state, toogleLikePost, deletePostState, updatePost, getOneUser]
   );
   if (!state?.posts) {
     return <Spinner fullScreen={true} />;

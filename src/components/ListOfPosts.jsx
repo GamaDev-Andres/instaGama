@@ -4,7 +4,12 @@ import useProfile from '../pages/profile/hook/useProfile';
 import PostProvider from './Post/context/PostProvider';
 import Post from './Post/Post';
 
-const ListOfPosts = ({ arrPosts = [], handleUpdatePost }) => {
+const ListOfPosts = ({
+  arrPosts = [],
+  handleUpdatePost,
+  handleLikePost,
+  handleDeletePost,
+}) => {
   const outletContext = useOutletContext();
   const arrToRender = outletContext?.posts || arrPosts;
   const contextProfile = useProfile();
@@ -21,6 +26,12 @@ const ListOfPosts = ({ arrPosts = [], handleUpdatePost }) => {
           <PostProvider
             data={post}
             updatePost={handleUpdatePost || contextProfile.updatePost}
+            handleDeletePost={
+              handleDeletePost || contextProfile.deletePostState
+            }
+            handleLikePostState={
+              handleLikePost || contextProfile.toogleLikePost
+            }
             key={post._id}
           >
             <Post />
@@ -33,5 +44,7 @@ const ListOfPosts = ({ arrPosts = [], handleUpdatePost }) => {
 ListOfPosts.propTypes = {
   arrPosts: propTypes.array,
   handleUpdatePost: propTypes.func,
+  handleLikePost: propTypes.func,
+  handleDeletePost: propTypes.func,
 };
 export default ListOfPosts;

@@ -25,6 +25,20 @@ const Home = () => {
     [posts]
   );
 
+  const handleDeletePost = useCallback(
+    (idPost) => {
+      setPosts(posts.filter((el) => el._id !== idPost));
+    },
+    [posts]
+  );
+
+  const handleLikePost = useCallback(
+    (newPost) => {
+      setPosts(posts.map((el) => (el._id === newPost._id ? newPost : el)));
+    },
+    [posts]
+  );
+
   return (
     <main className="min-h-screen">
       <Header>
@@ -35,7 +49,12 @@ const Home = () => {
         {!posts ? (
           <Spinner fullScreen={true} />
         ) : (
-          <ListOfPosts arrPosts={posts} handleUpdatePost={handleUpdatePost} />
+          <ListOfPosts
+            arrPosts={posts}
+            handleDeletePost={handleDeletePost}
+            handleLikePost={handleLikePost}
+            handleUpdatePost={handleUpdatePost}
+          />
         )}
       </div>
     </main>
