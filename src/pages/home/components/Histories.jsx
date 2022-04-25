@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useRef, useState } from 'react/cjs/react.development';
 import Spinner from '../../../components/Spinner';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import History from './History';
@@ -6,18 +6,28 @@ import History from './History';
 const Histories = () => {
   const { state, getHistoriesOfFollowing } = useAuthContext();
   const [histories, setHistories] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const isMounted = useRef(true);
   useEffect(() => {
+    setLoading(true);
     getHistoriesOfFollowing()
       .then((arrOfHistories) => {
         const histories = arrOfHistories
           .filter((el) => el.length)
           .map((el) => ({ autor: el[0].autor, histories: el }));
-        setHistories(histories);
+        if (isMounted.current) {
+          setHistories(histories);
+          setLoading(false);
+        }
       })
       .catch(console.log);
+    return () => {
+      setLoading(false);
+      isMounted.current = false;
+    };
   }, [getHistoriesOfFollowing]);
 
-  if (!histories) {
+  if (!histories || loading) {
     return <Spinner />;
   }
   return (

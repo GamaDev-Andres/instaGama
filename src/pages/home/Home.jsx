@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useRef } from 'react/cjs/react.development';
 
 import Header from '../../components/Header';
 import ListOfPosts from '../../components/ListOfPosts';
@@ -7,16 +8,26 @@ import { getPostsOfFollowing } from '../../services/getPostsOfFollowing';
 import Histories from './components/Histories';
 
 const Home = () => {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const isMounted = useRef(true);
+
   useEffect(() => {
+    setLoading(true);
     getPostsOfFollowing().then((res) => {
-      setPosts(
-        res.posts.map((el) => {
-          const { id, ...post } = el;
-          post._id = id;
-          return post;
-        })
-      );
+      if (isMounted.current) {
+        setPosts(
+          res.posts.map((el) => {
+            const { id, ...post } = el;
+            post._id = id;
+            return post;
+          })
+        );
+        setLoading(false);
+      }
+      return () => {
+        isMounted.current = false;
+      };
     });
   }, []);
 
@@ -52,7 +63,7 @@ const Home = () => {
       </Header>
       <div className="max-w-[600px] min-h-[calc(100vh-45px)] flex flex-col gap-0 sm:gap-8 mx-auto">
         <Histories />
-        {!posts ? (
+        {loading ? (
           <Spinner fullScreen={true} />
         ) : (
           <ListOfPosts

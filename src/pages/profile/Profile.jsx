@@ -1,10 +1,11 @@
+import propTypes from 'prop-types';
+
 import Header from '../../components/Header';
 import DataProfile from './components/DataProfile';
 import HeaderProfile from './components/HeaderProfile';
 import OptionsOfView from './components/OptionsOfView';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import useProfile from './hook/useProfile';
-import propTypes from 'prop-types';
 
 const Profile = ({ children }) => {
   const { logOut } = useAuthContext();

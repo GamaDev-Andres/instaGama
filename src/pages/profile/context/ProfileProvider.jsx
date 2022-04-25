@@ -26,6 +26,8 @@ const ProfileProvider = () => {
   const isMounted = useRef(true);
 
   useEffect(() => {
+    isMounted.current = true;
+
     getOneUser(userName).then((res) => {
       if (!res?.usuario) {
         navigate('/');
@@ -38,7 +40,7 @@ const ProfileProvider = () => {
     return () => {
       isMounted.current = false;
     };
-  }, []);
+  }, [userName]);
 
   const getHistoriesUser = async (uid) => {
     const urlPeticion = url + '/api/history/' + uid;
