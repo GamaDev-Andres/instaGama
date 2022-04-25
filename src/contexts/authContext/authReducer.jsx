@@ -7,6 +7,16 @@ const authReducer = (state, action) => {
         ...state,
         user: action.payload,
       };
+    case authTypes.TOOGLE_FOLLOW:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          following: state.user.following.includes(action.payload)
+            ? state.user.following.filter((el) => el !== action.payload)
+            : [...state.user.following, action.payload],
+        },
+      };
     case authTypes.LOG_OUT:
       return {
         ...state,

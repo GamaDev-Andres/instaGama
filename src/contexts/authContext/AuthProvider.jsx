@@ -120,6 +120,10 @@ const AuthProvider = ({ children }) => {
     }
   }, [state]);
 
+  const handleFollowUserSesion = useCallback((uid) => {
+    dispatch({ type: authTypes.TOOGLE_FOLLOW, payload: uid });
+  });
+
   const contexValue = useMemo(
     () => ({
       state,
@@ -128,8 +132,17 @@ const AuthProvider = ({ children }) => {
       renovarToken,
       getHistoriesOfFollowing,
       logOut,
+      handleFollowUserSesion,
     }),
-    [state, handleLogin, handleRegister, renovarToken, logOut]
+    [
+      state,
+      handleLogin,
+      handleRegister,
+      renovarToken,
+      logOut,
+      getHistoriesOfFollowing,
+      handleFollowUserSesion,
+    ]
   );
 
   return (

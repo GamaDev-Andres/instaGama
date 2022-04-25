@@ -10,6 +10,7 @@ import profileContext from './profileContext';
 import profileReducer from './profileReducer';
 
 const initialState = {
+  id: null,
   name: null,
   userName: null,
   foto: null,
@@ -90,6 +91,23 @@ const ProfileProvider = () => {
     });
   });
 
+  const toogleFollow = useCallback(
+    async (uid) => {
+      try {
+        const urlPath = url + '/api/users/follow/' + state.id;
+        const response = await customFetch(urlPath, 'POST');
+        if (response?.msg || response?.errors) {
+          throw new Error(response?.msg || response?.errors[0]?.msg);
+        }
+        dispatch({ type: profileTypes.TOOGLE_FOLLOW, payload: uid });
+        return response;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [state.id]
+  );
+
   const contexValue = useMemo(
     () => ({
       state,
@@ -98,8 +116,16 @@ const ProfileProvider = () => {
       updatePost,
       getHistoriesOfFollowing,
       getOneUser,
+      toogleFollow,
     }),
-    [state, toogleLikePost, deletePostState, updatePost, getOneUser]
+    [
+      state,
+      toogleLikePost,
+      deletePostState,
+      updatePost,
+      getOneUser,
+      toogleFollow,
+    ]
   );
   if (!state?.posts) {
     return <Spinner fullScreen={true} />;

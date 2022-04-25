@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react/cjs/react.development';
+import { useCallback, useEffect, useState } from 'react';
+
 import Header from '../../components/Header';
 import ListOfPosts from '../../components/ListOfPosts';
 import Spinner from '../../components/Spinner';
@@ -9,8 +10,13 @@ const Home = () => {
   const [posts, setPosts] = useState(null);
   useEffect(() => {
     getPostsOfFollowing().then((res) => {
-      console.log(res.posts);
-      setPosts(res.posts);
+      setPosts(
+        res.posts.map((el) => {
+          const { id, ...post } = el;
+          post._id = id;
+          return post;
+        })
+      );
     });
   }, []);
 

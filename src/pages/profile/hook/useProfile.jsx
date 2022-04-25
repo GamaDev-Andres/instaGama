@@ -3,7 +3,6 @@ import profileContext from '../context/profileContext';
 
 const useProfile = () => {
   const context = useContext(profileContext);
-
   return context;
 };
 

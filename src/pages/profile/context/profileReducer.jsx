@@ -4,6 +4,13 @@ const profileReducer = (state, action) => {
   switch (action.type) {
     case profileTypes.SET_USER:
       return action.payload;
+    case profileTypes.TOOGLE_FOLLOW:
+      return {
+        ...state,
+        followers: state.followers.includes(action.payload)
+          ? state.followers.filter((el) => el !== action.payload)
+          : [...state.followers, action.payload],
+      };
     case profileTypes.SET_POST:
       return {
         ...state,
