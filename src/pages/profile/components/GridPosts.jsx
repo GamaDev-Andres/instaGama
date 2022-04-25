@@ -1,7 +1,8 @@
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 const GridPosts = () => {
   const outletContext = useOutletContext();
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-3 gap-1 md:gap-7 relative flex-grow">
       {outletContext?.posts.length === 0 ? (
@@ -11,7 +12,11 @@ const GridPosts = () => {
         </div>
       ) : (
         outletContext?.posts?.map((el) => (
-          <div className="aspect-square" key={el._id}>
+          <div
+            onClick={() => navigate(`/p/${el._id}`)}
+            className="cursor-pointer aspect-square"
+            key={el._id}
+          >
             <img
               className="object-cover h-full w-full"
               src={el.url}

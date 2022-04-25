@@ -13,6 +13,7 @@ import FormRegister from '../pages/register/FormRegister';
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import authContext from '../contexts/authContext/authContext';
 import ProfileProvider from '../pages/profile/context/ProfileProvider';
+import PostPage from '../pages/post/PostPage';
 
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
@@ -47,6 +48,7 @@ const AppRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/inbox" element={<Inbox />} />
           <Route path="/inbox/:id" element={<InsideChat />} />
+          <Route path="/p/:id" element={<PostPage />} />
           <Route path="/search" element={<Search />}>
             <Route index element={<GridExploreSearch />} />
             <Route path="searching" element={<Searches />} />
