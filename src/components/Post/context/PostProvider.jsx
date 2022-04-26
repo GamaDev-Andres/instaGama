@@ -15,7 +15,9 @@ const PostProvider = ({
   const { id } = useUser();
   const { updatePost: updatePostService, toogleLikePost } = usePostMethods();
   const url = import.meta.env.VITE_URL_SERVER;
-  const haveMyLike = data.likes.some((obLike) => obLike._id === id);
+  const haveMyLike = data.likes.some(
+    (obLike) => obLike._id === id || obLike === id
+  );
 
   const updatePostContext = useCallback(async (idPost, data) => {
     try {

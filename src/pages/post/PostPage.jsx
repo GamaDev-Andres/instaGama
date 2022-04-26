@@ -1,49 +1,44 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react/cjs/react.development';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import PostProvider from '../../components/Post/context/PostProvider';
 import Post from '../../components/Post/Post';
 import Spinner from '../../components/Spinner';
-import { getOnePost } from '../../services/getOnePost';
+import useGetPost from './hook/useGetPost';
 
 const PostPage = () => {
   const { id } = useParams();
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const isMounted = useRef(true);
+  const { loading, data, setData } = useGetPost(id);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    isMounted.current = true;
-    async function getData() {
-      const response = await getOnePost(id);
-      console.log(response);
-      if (!response) {
-        setLoading(false);
-        navigate('/');
-      }
-      if (isMounted.current && response) {
-        setData(response.post);
-        setLoading(false);
-      }
-    }
-    getData();
-
-    return () => {
-      isMounted.current = false;
-    };
-  }, [id]);
+  const handleUpdatePost = (_, descripcion) => {
+    setData({ ...data, descripcion });
+  };
+  const handleDeletePost = () => {
+    navigate('/');
+  };
+  const handleLikePost = (post) => {
+    setData(post);
+  };
 
   return (
     <div>
       <Header>
-        <h1>Foto</h1>
+        <div className="relative center w-full">
+          <Link className="absolute px-4 left-0 top-0 bottom-0" to="/">
+            <i className="fa-solid fa-arrow-left"></i>
+          </Link>
+          <h1>Foto</h1>
+        </div>
       </Header>
       {loading || !data ? (
         <Spinner fullScreen={true} />
       ) : (
         <main>
-          <PostProvider data={data}>
+          <PostProvider
+            updatePost={handleUpdatePost}
+            handleDeletePost={handleDeletePost}
+            handleLikePostState={handleLikePost}
+            data={data}
+          >
             <Post />
           </PostProvider>
         </main>

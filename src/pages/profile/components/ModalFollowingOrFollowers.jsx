@@ -5,21 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import HeroImage from '../../../components/HeroImage';
 import Spinner from '../../../components/Spinner';
 import { useAuthContext } from '../../../hooks/useAuthContext';
-import { usePostMethods } from '../../../hooks/usePostMethods';
 import useUser from '../../../hooks/useUser';
+import useProfile from '../hook/useProfile';
 import { getFollowersOrFollowing } from '../../../services/getFollowersOrFollowing';
 import { toogleFollow } from '../../../services/toogleFollow';
-import useProfile from '../hook/useProfile';
 
-const ModalFollowingOrFollowers = ({ typeData }) => {
+const ModalFollowingOrFollowers = ({ typeData, handleCloseModal }) => {
   const [arrData, setarrData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingFollow, setLoadingFollow] = useState(false);
   const isMounted = useRef(true);
   const {
     state: { id },
   } = useProfile();
   const { following, id: userSesion } = useUser();
-  usePostMethods();
   const { handleFollowUserSesion } = useAuthContext();
   useEffect(() => {
     isMounted.current = true;
@@ -41,8 +40,12 @@ const ModalFollowingOrFollowers = ({ typeData }) => {
   }, []);
 
   const handleFollow = async (id) => {
+    setLoadingFollow(true);
     await toogleFollow(id);
     handleFollowUserSesion(id);
+    if (isMounted.current) {
+      setLoadingFollow(false);
+    }
   };
   const navigate = useNavigate();
   return (
@@ -56,10 +59,13 @@ const ModalFollowingOrFollowers = ({ typeData }) => {
             className="p-4 flex text-sm font-sans items-center justify-between"
             key={el.id}
           >
-            <div className="center gap-2">
+            <div className="center gap-2 min-w-0">
               <HeroImage url={el.foto} />
               <button
-                onClick={() => navigate(`/${el.userName}`)}
+                onClick={() => {
+                  handleCloseModal();
+                  navigate(`/${el.userName}`);
+                }}
                 className="font-semibold whitespace-nowrap text-ellipsis overflow-hidden"
               >
                 {el.name}
@@ -68,10 +74,16 @@ const ModalFollowingOrFollowers = ({ typeData }) => {
             {el.id !== userSesion && (
               <button
                 onClick={() => handleFollow(el.id)}
-                disabled={loading}
-                className="p-2 bg-azul rounded-lg text-white"
+                disabled={loadingFollow}
+                className="p-2 disabled:bg-azul disabled:bg-opacity-40 bg-azul rounded-lg text-white"
               >
-                {following.includes(el.id) ? 'Siguiendo' : 'Seguir'}
+                {loadingFollow ? (
+                  <Spinner />
+                ) : following.includes(el.id) ? (
+                  'Siguiendo'
+                ) : (
+                  'Seguir'
+                )}
               </button>
             )}
           </div>
@@ -83,6 +95,7 @@ const ModalFollowingOrFollowers = ({ typeData }) => {
 
 ModalFollowingOrFollowers.propTypes = {
   typeData: propTypes.string.isRequired,
+  handleCloseModal: propTypes.func.isRequired,
 };
 
 export default ModalFollowingOrFollowers;

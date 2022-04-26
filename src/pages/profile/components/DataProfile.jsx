@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import Modal from '../../../components/Modal';
 import ModalFollowingOrFollowers from './ModalFollowingOrFollowers';
 
@@ -33,7 +33,10 @@ const DataProfile = ({ posts, followers, following }) => {
       ))}
       {typeModal && (
         <Modal closeModal={() => setTypeModal(null)}>
-          <ModalFollowingOrFollowers typeData={typeModal} />
+          <ModalFollowingOrFollowers
+            handleCloseModal={() => setTypeModal(null)}
+            typeData={typeModal}
+          />
         </Modal>
       )}
     </div>
