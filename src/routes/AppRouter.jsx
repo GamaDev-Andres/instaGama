@@ -14,6 +14,7 @@ import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import authContext from '../contexts/authContext/authContext';
 import ProfileProvider from '../pages/profile/context/ProfileProvider';
 import PostPage from '../pages/post/PostPage';
+import InboxProvider from '../pages/inbox/context/inboxProvider';
 
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
@@ -46,8 +47,10 @@ const AppRouter = () => {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Home />} />
-          <Route path="/inbox" element={<Inbox />} />
-          <Route path="/inbox/:id" element={<InsideChat />} />
+          <Route path="/inbox" element={<InboxProvider />}>
+            <Route index element={<Inbox />} />
+            <Route path=":id" element={<InsideChat />} />
+          </Route>
           <Route path="/p/:id" element={<PostPage />} />
           <Route path="/search" element={<Search />}>
             <Route index element={<GridExploreSearch />} />

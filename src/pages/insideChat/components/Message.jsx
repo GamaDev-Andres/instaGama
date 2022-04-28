@@ -10,7 +10,7 @@ const Message = ({ own = false, text }) => {
           own ? 'bg-[#efefef]' : 'border border-bordes'
         }`}
       >
-        Lorem ipsum dolor sit amet.
+        {text}
       </div>
     </div>
   );

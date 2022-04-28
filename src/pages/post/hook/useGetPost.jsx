@@ -12,7 +12,6 @@ const useGetPost = (id) => {
     isMounted.current = true;
     async function getData() {
       const response = await getOnePost(id);
-      console.log(response);
       if (!response) {
         setLoading(false);
         navigate('/');

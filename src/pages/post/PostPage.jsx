@@ -1,5 +1,6 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
+import LeftArrowButton from '../../components/LeftArrowButton';
 import PostProvider from '../../components/Post/context/PostProvider';
 import Post from '../../components/Post/Post';
 import Spinner from '../../components/Spinner';
@@ -23,9 +24,7 @@ const PostPage = () => {
     <div>
       <Header>
         <div className="relative center w-full">
-          <Link className="absolute px-4 left-0 top-0 bottom-0" to="/">
-            <i className="fa-solid fa-arrow-left"></i>
-          </Link>
+          <LeftArrowButton path="/" />
           <h1>Foto</h1>
         </div>
       </Header>
