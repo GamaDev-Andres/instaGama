@@ -22,6 +22,11 @@ export const customFetch = async (url, method, body, withToken = true) => {
 
     const response = await fetch(url, optionsFetch)
     const data = await response.json()
+    if (data.msg === "Token no válido") {
+      localStorage.removeItem("token")
+      location.reload()
+      return
+    }
     return data
 
 

@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
         { email, password },
         false
       );
-      console.log(response);
       if (response?.msg || response?.errors) {
         return response?.msg || response?.errors[0]?.msg;
       }
@@ -73,6 +72,7 @@ const AuthProvider = ({ children }) => {
       const urlPeticion = url + '/api/auth';
       const response = await customFetch(urlPeticion, 'GET');
       if (response?.msg || response?.errors) {
+        localStorage.removeItem('token');
         return response?.msg || response?.errors[0]?.msg;
       }
       const histories = await getHistoriesUser(response.usuario.id);
