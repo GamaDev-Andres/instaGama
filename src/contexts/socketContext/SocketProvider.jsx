@@ -13,9 +13,6 @@ const SocketProvider = ({ children }) => {
   useEffect(() => {
     socket.on('connect', () => {
       console.log('conectado con el servidor');
-      socket.on('mensaje', (mensaje) => {
-        console.log(mensaje);
-      });
     });
   }, []);
 

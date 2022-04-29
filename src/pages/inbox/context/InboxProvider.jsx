@@ -5,12 +5,16 @@ import { inboxReducer } from './inboxReducer';
 
 import { customFetch } from '../../../services/customFetch';
 import { inboxTypes } from '../types/inboxTypes';
+import { useContext } from 'react/cjs/react.development';
+import socketContext from '../../../contexts/socketContext/socketContext';
 
 const initialState = { chats: null };
 
 const InboxProvider = () => {
   const [state, dispatch] = useReducer(inboxReducer, initialState);
   const isMounted = useRef(true);
+  const { socket } = useContext(socketContext);
+
   useEffect(() => {
     const urlPeticionChats =
       import.meta.env.VITE_URL_SERVER + '/api/inbox/chats';
@@ -26,12 +30,23 @@ const InboxProvider = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    socket.on('mensaje', (mensaje) => {
+      addMessageState(mensaje, mensaje.autor);
+    });
+
     return () => {
       isMounted.current = false;
     };
   }, []);
 
-  const contextValue = useMemo(() => ({ chats: state.chats }), [state.chats]);
+  const addMessageState = (mensaje, idChat) => {
+    dispatch({ type: inboxTypes.ADD_MESSAGE, payload: { idChat, mensaje } });
+  };
+  const contextValue = useMemo(
+    () => ({ chats: state.chats, addMessageState }),
+    [state.chats, addMessageState]
+  );
   return (
     <inboxContext.Provider value={contextValue}>
       <Outlet />

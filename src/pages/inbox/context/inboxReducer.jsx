@@ -7,6 +7,15 @@ export const inboxReducer = (state, action) => {
         ...state,
         chats: action.payload,
       };
+    case inboxTypes.ADD_MESSAGE:
+      return {
+        ...state,
+        chats: state.chats.map((chat) =>
+          chat.with.id === action.payload.idChat
+            ? { ...chat, mensajes: [...chat.mensajes, action.payload.mensaje] }
+            : chat
+        ),
+      };
 
     default:
       return state;

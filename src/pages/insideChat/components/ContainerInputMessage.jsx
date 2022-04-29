@@ -1,28 +1,42 @@
-import { useEffect, useState } from 'react/cjs/react.development';
-// import socketContext from '../../../contexts/socketContext/socketContext';
+import propTypes from 'prop-types';
+import { useContext, useEffect, useState } from 'react';
+import socketContext from '../../../contexts/socketContext/socketContext';
+import useInboxContext from '../../inbox/hook/useInboxContext';
 
-const ContainerInputMessage = () => {
+const ContainerInputMessage = ({ uid }) => {
   const [input, setInput] = useState('');
-  // const { socket } = useContext(socketContext);
+  const { socket } = useContext(socketContext);
+  const { addMessageState } = useInboxContext();
+  const handleSubmit = () => {
+    console.log('submit');
+    if (!input.trim()) {
+      return;
+    }
+    socket.emit(
+      'mensaje',
+      {
+        uid,
+        mensaje: input,
+      },
+      (error, res) => {
+        if (error) {
+          throw new Error('Hubo un error en el envio de un mensaje');
+        }
 
+        addMessageState(res, uid);
+        setInput('');
+      }
+    );
+  };
+  const handleKeyPress = (e) => {
+    if (e.which === 13 && !e.shiftKey) {
+      e.preventDefault();
+
+      handleSubmit();
+    }
+  };
   const handleInput = (e) => {
-    // console.log(e.target.rows);
-
-    // if (e.target.value.includes('\n')) {
-    //   console.log('salto de linea');
-    // }
-
     setInput(e.target.value);
-    // socket.emit(
-    //   'mensaje',
-    //   {
-    //     uid: '62577f8e1e2a0ab40293f484',
-    //     mensaje: 'hola desde el cliente',
-    //   },
-    //   (algo) => {
-    //     console.log('algo salio mal');
-    //   }
-    // );
   };
   useEffect(() => {
     return () => {};
@@ -34,17 +48,26 @@ const ContainerInputMessage = () => {
         <div className="center flex-grow">
           <textarea
             onChange={handleInput}
+            onKeyDown={handleKeyPress}
             value={input}
             placeholder="Envía un mensaje..."
             className=" mr-[2px] flex-grow overflow-y-auto leading-[18px] h-[18px] text-sm box-content p-2 resize-none outline-none"
           ></textarea>
         </div>
-        <button className="p-2 center">
-          <i className="fa-solid fa-image"></i>
-        </button>
+        {input ? (
+          <button onClick={handleSubmit} className="p-2 center">
+            <i className="fa-solid fa-paper-plane"></i>
+          </button>
+        ) : (
+          <button className="p-2 center">
+            <i className="fa-solid fa-image"></i>
+          </button>
+        )}
       </div>
     </div>
   );
 };
-
+ContainerInputMessage.propTypes = {
+  uid: propTypes.string.isRequired,
+};
 export default ContainerInputMessage;

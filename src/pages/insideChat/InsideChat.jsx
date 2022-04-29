@@ -28,14 +28,14 @@ const InsideChat = () => {
 
       <main
         ref={listOfMessages}
-        className="bg-fondoClaro min-h-0 flex flex-col justify-end max-h-[calc(100vh-85px-44px)] flex-grow overflow-y-auto px-4"
+        className="bg-fondoClaro min-h-0 flex flex-col justify-end  flex-grow overflow-y-auto px-4"
       >
         {chatCurrent?.mensajes.map((el) => (
-          <Message own={id !== el.autor.id} text={el.mensaje} key={el._id} />
+          <Message own={id !== el.autor} text={el.mensaje} key={el._id} />
         ))}
       </main>
 
-      <ContainerInputMessage />
+      <ContainerInputMessage uid={id} />
     </div>
   );
 };
