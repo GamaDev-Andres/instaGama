@@ -20,7 +20,6 @@ const useForm = (dataInitial, serviceSubmit) => {
     e.preventDefault();
     try {
       setLoading(true);
-      console.log(dataForm);
       const msg = await serviceSubmit(dataForm);
       setLoading(false);
       if (msg) {

@@ -34,12 +34,20 @@ const InboxProvider = () => {
     socket.on('mensaje', (mensaje) => {
       addMessageState(mensaje, mensaje.autor);
     });
+    socket.on('chat', (chat) => {
+      console.log('este es el chat ');
+      console.log(chat);
+      addChatState(chat);
+    });
 
     return () => {
       isMounted.current = false;
     };
   }, []);
 
+  const addChatState = (chat) => {
+    dispatch({ type: inboxTypes.ADD_CHAT, payload: chat });
+  };
   const addMessageState = (mensaje, idChat) => {
     dispatch({ type: inboxTypes.ADD_MESSAGE, payload: { idChat, mensaje } });
   };

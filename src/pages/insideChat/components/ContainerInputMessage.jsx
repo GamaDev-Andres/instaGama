@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import socketContext from '../../../contexts/socketContext/socketContext';
 import useInboxContext from '../../inbox/hook/useInboxContext';
 
@@ -8,7 +8,6 @@ const ContainerInputMessage = ({ uid }) => {
   const { socket } = useContext(socketContext);
   const { addMessageState } = useInboxContext();
   const handleSubmit = () => {
-    console.log('submit');
     if (!input.trim()) {
       return;
     }
@@ -24,9 +23,9 @@ const ContainerInputMessage = ({ uid }) => {
         }
 
         addMessageState(res, uid);
-        setInput('');
       }
     );
+    setInput('');
   };
   const handleKeyPress = (e) => {
     if (e.which === 13 && !e.shiftKey) {
@@ -38,9 +37,6 @@ const ContainerInputMessage = ({ uid }) => {
   const handleInput = (e) => {
     setInput(e.target.value);
   };
-  useEffect(() => {
-    return () => {};
-  }, [input]);
 
   return (
     <div className=" p-4 bg-fondoClaro border-t border-bordes">

@@ -16,6 +16,11 @@ export const inboxReducer = (state, action) => {
             : chat
         ),
       };
+    case inboxTypes.ADD_CHAT:
+      return {
+        ...state,
+        chats: [...state.chats, action.payload],
+      };
 
     default:
       return state;
