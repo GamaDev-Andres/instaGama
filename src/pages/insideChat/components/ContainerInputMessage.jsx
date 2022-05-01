@@ -1,12 +1,14 @@
 import propTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import socketContext from '../../../contexts/socketContext/socketContext';
+import useUser from '../../../hooks/useUser';
 import useInboxContext from '../../inbox/hook/useInboxContext';
 
 const ContainerInputMessage = ({ uid }) => {
   const [input, setInput] = useState('');
   const { socket } = useContext(socketContext);
   const { addMessageState } = useInboxContext();
+  const { id } = useUser();
   const handleSubmit = () => {
     if (!input.trim()) {
       return;
@@ -14,6 +16,7 @@ const ContainerInputMessage = ({ uid }) => {
     socket.emit(
       'mensaje',
       {
+        id,
         uid,
         mensaje: input,
       },

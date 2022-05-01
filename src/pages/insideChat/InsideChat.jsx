@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef, useContext, useState } from 'react';
 import Header from '../../components/Header';
 import Spinner from '../../components/Spinner';
 import useInboxContext from '../inbox/hook/useInboxContext';
@@ -8,24 +8,27 @@ import HeaderChat from './components/HeaderChat';
 import Message from './components/Message';
 
 import socketContext from '../../contexts/socketContext/socketContext';
-import { useState } from 'react/cjs/react.development';
+import useUser from '../../hooks/useUser';
 
 const InsideChat = () => {
   const listOfMessages = useRef();
   const { id } = useParams();
   const { chats } = useInboxContext();
+  const { id: userId } = useUser();
   const { socket } = useContext(socketContext);
   const navigate = useNavigate();
   const [chatCurrent, setchatCurrent] = useState(null);
 
   useEffect(() => {
-    const chat = chats?.find((chat) => chat.with.id === id);
+    if (id === userId) {
+      navigate('/');
+      return;
+    }
 
-    if (!chat) {
-      console.log('no hay chat');
+    const chat = chats?.find((chat) => chat.with.id === id);
+    if (!chat && chats) {
       socket.emit('newChat', id, (error, chat) => {
         if (error) {
-          console.log('error');
           navigate('/');
           throw new Error(error);
         } else {
@@ -40,7 +43,7 @@ const InsideChat = () => {
   useEffect(() => {
     const lastChild = listOfMessages.current?.lastChild;
     lastChild?.scrollIntoView();
-  }, [chats]);
+  }, [chatCurrent, listOfMessages]);
 
   if (!chats || !chatCurrent) {
     return <Spinner fullScreen={true} />;

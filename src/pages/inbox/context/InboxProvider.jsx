@@ -35,8 +35,6 @@ const InboxProvider = () => {
       addMessageState(mensaje, mensaje.autor);
     });
     socket.on('chat', (chat) => {
-      console.log('este es el chat ');
-      console.log(chat);
       addChatState(chat);
     });
 
