@@ -5,7 +5,7 @@ import { inboxReducer } from './inboxReducer';
 
 import { customFetch } from '../../../services/customFetch';
 import { inboxTypes } from '../types/inboxTypes';
-import { useContext } from 'react/cjs/react.development';
+import { useCallback, useContext } from 'react/cjs/react.development';
 import socketContext from '../../../contexts/socketContext/socketContext';
 
 const initialState = { chats: null };
@@ -34,24 +34,34 @@ const InboxProvider = () => {
     socket.on('mensaje', (mensaje) => {
       addMessageState(mensaje, mensaje.autor);
     });
-    socket.on('chat', (chat) => {
-      addChatState(chat);
-    });
+    socket.on('chat', addChatState);
+    socket.on('deleteMensaje', deleteMessageState);
 
     return () => {
       isMounted.current = false;
     };
   }, []);
 
-  const addChatState = (chat) => {
+  const deleteMessageState = useCallback(({ mensaje, idChat }) => {
+    dispatch({ type: inboxTypes.DELETE_MESSAGE, payload: { mensaje, idChat } });
+  });
+  const addChatState = useCallback((chat) => {
     dispatch({ type: inboxTypes.ADD_CHAT, payload: chat });
-  };
-  const addMessageState = (mensaje, idChat) => {
+  });
+  const addMessageState = useCallback((mensaje, idChat) => {
     dispatch({ type: inboxTypes.ADD_MESSAGE, payload: { idChat, mensaje } });
-  };
+  });
+  const deleteChatState = useCallback((idChat) => {
+    dispatch({ type: inboxTypes.DELETE_CHAT, payload: idChat });
+  });
   const contextValue = useMemo(
-    () => ({ chats: state.chats, addMessageState }),
-    [state.chats, addMessageState]
+    () => ({
+      chats: state.chats,
+      addMessageState,
+      deleteChatState,
+      deleteMessageState,
+    }),
+    [state.chats, addMessageState, deleteChatState, deleteMessageState]
   );
   return (
     <inboxContext.Provider value={contextValue}>

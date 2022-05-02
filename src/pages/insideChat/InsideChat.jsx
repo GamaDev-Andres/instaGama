@@ -6,7 +6,6 @@ import useInboxContext from '../inbox/hook/useInboxContext';
 import ContainerInputMessage from './components/ContainerInputMessage';
 import HeaderChat from './components/HeaderChat';
 import Message from './components/Message';
-
 import socketContext from '../../contexts/socketContext/socketContext';
 import useUser from '../../hooks/useUser';
 
@@ -51,7 +50,7 @@ const InsideChat = () => {
   return (
     <div className="flex flex-col min-h-screen flex-grow">
       <Header>
-        <HeaderChat userChat={chatCurrent.with} />
+        <HeaderChat chatCurrent={chatCurrent} />
       </Header>
 
       <main
@@ -59,7 +58,7 @@ const InsideChat = () => {
         className="bg-fondoClaro min-h-0 flex flex-col justify-end  flex-grow overflow-y-auto px-4"
       >
         {chatCurrent?.mensajes.map((el) => (
-          <Message own={id !== el.autor} text={el.mensaje} key={el._id} />
+          <Message own={id !== el.autor} data={el} key={el._id} />
         ))}
       </main>
 

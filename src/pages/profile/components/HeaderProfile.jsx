@@ -1,5 +1,5 @@
 import HeroImage from '../../../components/HeroImage';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
 import useUser from '../../../hooks/useUser';
 import useProfile from '../hook/useProfile';
@@ -39,9 +39,12 @@ const HeaderProfile = ({ foto, name }) => {
             </button>
           ) : (
             <div className="flex gap-1 w-full max-w-[250px] justify-start">
-              <button className="whitespace-nowrap font-semibold font-sans border text-sm border-bordes py-[5px] px-[9px] rounded-md">
+              <Link
+                to={`/inbox/${idProfile}`}
+                className="whitespace-nowrap font-semibold font-sans border text-sm border-bordes py-[5px] px-[9px] rounded-md"
+              >
                 enviar Mensaje
-              </button>
+              </Link>
               <button
                 disabled={loadingFollow}
                 onClick={handleFollow}

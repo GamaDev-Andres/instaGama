@@ -1,8 +1,11 @@
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeroImage from '../../../components/HeroImage';
+import { timeAgo } from '../../../utilities/timeAgo';
 
 const Chat = ({ data }) => {
+  const lastMessage = data.mensajes.slice(-1)[0];
+  const dateInMs = new Date(lastMessage.fecha).getTime();
   return (
     <Link
       className="outline-none hover:bg-fondoGris focus:bg-fondoGris"
@@ -16,10 +19,10 @@ const Chat = ({ data }) => {
           </h4>
           <div className="text-grisLetra flex w-full min-w-0">
             <span className="first-letter:uppercase min-w-0 whitespace-nowrap text-ellipsis overflow-hidden block">
-              activo o ultimo mensaje mas cositas
+              {lastMessage.mensaje}
             </span>
             <span className="mx-[2px] font-semibold">·</span>
-            <span>fecha</span>
+            <span>{timeAgo(dateInMs, 'es-ES')}</span>
           </div>
         </div>
       </div>
