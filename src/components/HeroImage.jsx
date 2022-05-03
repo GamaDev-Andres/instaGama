@@ -4,7 +4,7 @@ const HeroImage = ({ className = 'w-[32px]', url }) => {
   return (
     <div className={`aspect-square  bg-fondoClaro rounded-full `}>
       <img
-        className={`rounded-full select-none object-cover m-[2px] ${className}`}
+        className={`rounded-full select-none object-cover aspect-square m-[2px] ${className}`}
         src={url || 'https://picsum.photos/500'}
         alt="img"
       />

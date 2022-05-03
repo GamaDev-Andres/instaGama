@@ -1,24 +1,26 @@
 import { Route, Routes } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useContext, useEffect, useState } from 'react';
 
 import Page404 from '../pages/page404/Page404';
-import Searches from '../pages/search/components/Searches';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Spinner from '../components/Spinner';
-import InsideChat from '../pages/insideChat/InsideChat';
 import Account from '../pages/account/Account';
 import FormLogin from '../pages/login/FormLogin';
 import FormRegister from '../pages/register/FormRegister';
-import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import authContext from '../contexts/authContext/authContext';
-import ProfileProvider from '../pages/profile/context/ProfileProvider';
-import PostPage from '../pages/post/PostPage';
-import InboxProvider from '../pages/inbox/context/inboxProvider';
 
+const InsideChat = lazy(() => import('../pages/insideChat/InsideChat'));
+const PostPage = lazy(() => import('../pages/post/PostPage'));
+const ProfileProvider = lazy(() =>
+  import('../pages/profile/context/ProfileProvider')
+);
+const InboxProvider = lazy(() =>
+  import('../pages/inbox/context/inboxProvider')
+);
+const Searches = lazy(() => import('../pages/search/components/Searches'));
 const Home = lazy(() => import('../pages/home/Home'));
 const Inbox = lazy(() => import('../pages/inbox/Inbox'));
-
 const Search = lazy(() => import('../pages/search/Search'));
 const ListOfPosts = lazy(() => import('../components/ListOfPosts'));
 const GridPosts = lazy(() => import('../pages/profile/components/GridPosts'));

@@ -15,7 +15,7 @@ const ListOfPosts = ({
   const contextProfile = useProfile();
 
   return (
-    <div className="flex-grow flex flex-col gap-4 sm:gap-8 relative">
+    <div className="flex-grow flex flex-col gap-4 sm:gap-8 relative pb-[45px]">
       {arrToRender.length === 0 ? (
         <div className="text-grisLetra font-bold text-center text-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
           Aún no tenemos publicaciones para mostrarte intenta seguir a otras

@@ -21,23 +21,16 @@ const useUpdateCloudinary = (multiple) => {
             const arrFotos = arrData.map((data) => {
               return data.uploadInfo.secure_url;
             });
-
             setData(arrFotos);
           }
-          console.log(result.event);
           if (result.event === 'abort' || result.event === 'close') {
             setLoading(false);
             setopen(false);
-            if (data) {
-              console.log(data);
-              console.log('cerro , cuado ya subio la foto');
-            }
           }
         } else {
-          console.log('error subiendo archivos a clodinary');
-
           setLoading(false);
           setopen(false);
+          throw new Error('error subiendo archivos a clodinary');
         }
       }
     );

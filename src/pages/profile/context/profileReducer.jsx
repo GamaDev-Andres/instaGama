@@ -32,6 +32,11 @@ const profileReducer = (state, action) => {
             : el
         ),
       };
+    case profileTypes.UPDATE_USER:
+      return {
+        ...state,
+        ...action.payload,
+      };
 
     default:
       return state;

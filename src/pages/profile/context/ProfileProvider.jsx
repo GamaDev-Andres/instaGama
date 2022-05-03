@@ -20,10 +20,10 @@ const initialState = {
 };
 const ProfileProvider = () => {
   const [state, dispatch] = useReducer(profileReducer, initialState);
-  const url = import.meta.env.VITE_URL_SERVER;
   const { user: userName } = useParams();
   const navigate = useNavigate();
   const isMounted = useRef(true);
+  const url = import.meta.env.VITE_URL_SERVER;
 
   useEffect(() => {
     isMounted.current = true;
@@ -42,33 +42,28 @@ const ProfileProvider = () => {
     };
   }, [userName]);
 
-  const getHistoriesUser = async (uid) => {
-    const urlPeticion = url + '/api/history/' + uid;
-    try {
-      const response = await customFetch(urlPeticion, 'GET');
-      if (response?.msg || response?.errors) {
-        return response?.msg || response?.errors[0]?.msg;
-      }
-      return response?.historias;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const toogleLikePost = useCallback((post) => {
     dispatch({ type: profileTypes.SET_POST, payload: post });
   });
+  const updateUserState = (data) => {
+    dispatch({ type: profileTypes.UPDATE_USER, payload: data });
+  };
+  const updateUser = useCallback(async (data) => {
+    const urlPeticion = url + '/api/users';
 
-  const getHistoriesOfFollowing = useCallback(async () => {
     try {
-      const historiesOfFollowing = await Promise.all(
-        state?.user?.following.map((el) => getHistoriesUser(el))
-      );
-      return historiesOfFollowing;
+      const response = await customFetch(urlPeticion, 'PUT', data);
+      if (response?.msg || response?.errors) {
+        throw new Error(response?.msg || response?.errors[0].msg);
+      }
+      if (!data.password) {
+        updateUserState(data);
+      }
+      return true;
     } catch (error) {
       console.log(error);
     }
-  }, [state]);
+  }, []);
 
   const getOneUser = useCallback(async (userName) => {
     const urlPeticion = url + '/api/users/' + userName;
@@ -116,8 +111,8 @@ const ProfileProvider = () => {
       toogleLikePost,
       deletePostState,
       updatePost,
-      getHistoriesOfFollowing,
       getOneUser,
+      updateUser,
       toogleFollow,
     }),
     [
@@ -126,6 +121,7 @@ const ProfileProvider = () => {
       deletePostState,
       updatePost,
       getOneUser,
+      updateUser,
       toogleFollow,
     ]
   );
