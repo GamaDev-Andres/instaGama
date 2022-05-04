@@ -16,7 +16,7 @@ const ButtonHeroImageProfile = ({ foto }) => {
   return (
     <>
       <button onClick={handleOpenModal}>
-        <HeroImage url={foto} className="w-[77px]" />
+        <HeroImage url={foto} className="w-[77px] md:w-[150px]" />
       </button>
       {isOpenModal && <ModalChangePhoto handleCloseModal={handleCloseModal} />}
     </>

@@ -1,11 +1,12 @@
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { dateToMs } from '../../../adapters/dateToMs';
 import HeroImage from '../../../components/HeroImage';
 import { timeAgo } from '../../../utilities/timeAgo';
 
 const Chat = ({ data }) => {
   const lastMessage = data.mensajes.slice(-1)[0];
-  const dateInMs = new Date(lastMessage.fecha).getTime();
+  const dateInMs = dateToMs(lastMessage.fecha);
   return (
     <Link
       className="outline-none hover:bg-fondoGris focus:bg-fondoGris"

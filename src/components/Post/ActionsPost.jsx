@@ -1,9 +1,10 @@
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react/cjs/react.development';
 import usePost from './hook/usePost';
 
 const ActionsPost = ({ idPost, haveMyLike }) => {
-  const { handleLikePost } = usePost();
+  const { handleLikePost, _id } = usePost();
   const [loading, setLoading] = useState(false);
   const isMounted = useRef(true);
   useEffect(() => {
@@ -26,9 +27,9 @@ const ActionsPost = ({ idPost, haveMyLike }) => {
       >
         <i className="fa-solid fa-heart text-2xl"></i>
       </button>
-      <button className="center w-11 h-11">
+      <Link to={`/coments/${_id}`} className="center w-11 h-11">
         <i className="fa-solid fa-comment text-2xl"></i>
-      </button>
+      </Link>
       <button className="center w-11 h-11">
         <i className="fa-solid fa-share text-2xl"></i>
       </button>

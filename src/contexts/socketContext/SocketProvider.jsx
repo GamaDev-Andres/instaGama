@@ -11,7 +11,7 @@ const SocketProvider = ({ children }) => {
   useEffect(() => {
     socket.emit('validado', { token: localStorage.getItem('token'), id });
     return () => {
-      socket.emit('logout');
+      socket.emit('logout', id);
     };
   }, []);
 

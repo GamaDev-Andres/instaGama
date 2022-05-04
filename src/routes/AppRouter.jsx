@@ -9,6 +9,8 @@ import Account from '../pages/account/Account';
 import FormLogin from '../pages/login/FormLogin';
 import FormRegister from '../pages/register/FormRegister';
 import authContext from '../contexts/authContext/authContext';
+import PageComents from '../pages/pageComents/PageComents';
+import PageComentProvider from '../pages/pageComents/context/PageComentProvider';
 
 const InsideChat = lazy(() => import('../pages/insideChat/InsideChat'));
 const PostPage = lazy(() => import('../pages/post/PostPage'));
@@ -54,6 +56,14 @@ const AppRouter = () => {
             <Route path=":id" element={<InsideChat />} />
           </Route>
           <Route path="/p/:id" element={<PostPage />} />
+          <Route
+            path="/coments/:idPost"
+            element={
+              <PageComentProvider>
+                <PageComents />
+              </PageComentProvider>
+            }
+          />
           <Route path="/search" element={<Search />}>
             <Route index element={<GridExploreSearch />} />
             <Route path="searching" element={<Searches />} />

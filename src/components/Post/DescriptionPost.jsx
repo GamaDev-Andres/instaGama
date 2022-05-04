@@ -1,10 +1,14 @@
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Coment from './Coment';
+import usePost from './hook/usePost';
 
 const DescriptionPost = ({ likes, descripcion = '' }) => {
-  const comentarios = 13;
-  const coments = [1, 2, 3, 4];
+  const {
+    _id,
+    coments,
+    autor: { userName, name },
+  } = usePost();
 
   return (
     <div className="text-sm pb-2 px-4">
@@ -14,8 +18,8 @@ const DescriptionPost = ({ likes, descripcion = '' }) => {
       </div>
       <div>
         <span>
-          <Link to="/profile" className="font-semibold">
-            andres gama
+          <Link to={`/${userName}`} className="font-semibold">
+            {name}
           </Link>{' '}
           {descripcion.length > 150 ? descripcion.slice(0, 150) : descripcion}
         </span>
@@ -25,18 +29,24 @@ const DescriptionPost = ({ likes, descripcion = '' }) => {
           </span>
         )}
         <div>
-          {coments.slice(0, 2).map((el) => (
+          {coments.slice(-2).map((coment) => (
             <Coment
-              key={el}
-              texto="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus commodi hic,"
+              key={coment._id}
+              texto={coment.text}
+              name={coment.autor?.name}
+              username={coment.autor?.userName}
             />
           ))}
         </div>
         <div>
-          <Link to="/coments" className="text-grisLetra font-semibold">
-            ver los {comentarios} comentarios
-          </Link>
+          {coments.length > 0 && (
+            <Link
+              to={`/coments/${_id}`}
+              className="text-grisLetra font-semibold"
+            >
+              ver los {coments.length} comentarios
+            </Link>
+          )}
         </div>
       </div>
     </div>
