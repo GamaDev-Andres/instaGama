@@ -50,9 +50,51 @@ const PageComentProvider = ({ children }) => {
   const addComentToState = (coment) => {
     setState((estado) => ({ ...estado, coments: [...estado.coments, coment] }));
   };
+
+  const deleteComent = async (idComent) => {
+    const url = import.meta.env.VITE_URL_SERVER;
+
+    try {
+      const urlPath = url + '/api/coment/' + idComent;
+      const response = await customFetch(urlPath, 'DELETE');
+      if (response?.msg || response?.errors) {
+        throw new Error(response?.msg || response?.errors[0]?.msg);
+      }
+      setState((estado) => ({
+        ...estado,
+        coments: estado.coments.filter((coment) => coment.id !== idComent),
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateComent = async (idComent, data) => {
+    const url = import.meta.env.VITE_URL_SERVER;
+
+    try {
+      const urlPath = url + '/api/coment/' + idComent;
+      const response = await customFetch(urlPath, 'PUT', data);
+      if (response?.msg || response?.errors) {
+        throw new Error(response?.msg || response?.errors[0]?.msg);
+      }
+
+      setState((estado) => ({
+        ...estado,
+        coments: estado.coments.map((coment) =>
+          coment.id === idComent ? { ...coment, text: data.text } : coment
+        ),
+      }));
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const contextValue = {
     ...state,
     addComentToState,
+    deleteComent,
+    updateComent,
   };
   return (
     <pageComentContext.Provider value={contextValue}>

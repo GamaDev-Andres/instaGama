@@ -6,19 +6,12 @@ const ListoOfComents = ({ coments }) => {
   const { autor, descripcion, fecha } = usePageComentsContext();
 
   return (
-    <div className="flex flex-col bg-fondoClaro flex-grow p-4 ">
+    <div className="flex flex-col bg-fondoClaro flex-grow px-4 pb-4">
       <ComentWithPhotoAndDate
-        autor={autor}
-        descripcion={descripcion}
-        fecha={fecha}
+        coment={{ autor, text: descripcion, createdAt: fecha, id: null }}
       />
       {coments.map((coment) => (
-        <ComentWithPhotoAndDate
-          key={coment.id}
-          autor={coment.autor}
-          descripcion={coment.text}
-          fecha={coment.createdAt}
-        />
+        <ComentWithPhotoAndDate key={coment.id} coment={coment} />
       ))}
     </div>
   );

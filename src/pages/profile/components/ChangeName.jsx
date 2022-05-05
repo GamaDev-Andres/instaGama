@@ -19,7 +19,6 @@ const ChangeName = ({ handleCloseModal }) => {
       setError('Nombre demasiado corto, minimo 4 caracteres.');
       return;
     }
-    console.log('submit');
     setLoading(true);
     const res = await updateUser({ name: inputName });
     setLoading(false);
