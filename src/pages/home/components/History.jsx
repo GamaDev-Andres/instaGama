@@ -20,7 +20,7 @@ const History = ({ data }) => {
           </div>
         )}
       </div>
-      <div className="text-center mt-1 text-xs whitespace-nowrap text-ellipsis overflow-hidden max-w-[72px]">
+      <div className="text-center mt-1 text-xs whitespace-nowrap text-ellipsis overflow-hidden max-w-[78px]">
         {data?.autor?.name}
       </div>
     </div>

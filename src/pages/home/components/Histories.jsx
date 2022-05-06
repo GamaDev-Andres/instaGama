@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react/cjs/react.development';
 import Spinner from '../../../components/Spinner';
 import { useAuthContext } from '../../../hooks/useAuthContext';
+import CarouselHistories from './CarouselHistories';
 import History from './History';
-
 const Histories = () => {
   const { state, getHistoriesOfFollowing } = useAuthContext();
   const [histories, setHistories] = useState(null);
@@ -31,10 +31,12 @@ const Histories = () => {
     return <Spinner />;
   }
   return (
-    <div className="h-[110px] center">
-      {[state.user.histories, ...histories]?.map((el) => (
-        <History data={el} key={el.autor._id} />
-      ))}
+    <div className="h-[110px] center sm:mt-8 border border-transparent sm:border sm:border-bordes sm:rounded-md sm:bg-fondoClaro">
+      <CarouselHistories>
+        {[state.user.histories, ...histories]?.map((el) => (
+          <History data={el} key={el.autor._id} />
+        ))}
+      </CarouselHistories>
     </div>
   );
 };
