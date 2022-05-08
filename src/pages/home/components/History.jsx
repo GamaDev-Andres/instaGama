@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 import HeroImage from '../../../components/HeroImage';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import useUpdateCloudinary from '../../../hooks/useUpdateCloudinary';
@@ -14,56 +14,79 @@ const History = ({ data }) => {
     },
   } = useAuthContext();
   const { data: dataCloudinary, loading, handleOpen } = useUpdateCloudinary();
-  const [isCancel, setIsCancel] = useState(false);
   const [isOpenViewHistory, setIsOpenViewHistory] = useState(false);
+  const [isCreating, setisCreating] = useState(false);
   console.log(data);
   console.log(dataCloudinary);
 
   useEffect(() => {
-    if (dataCloudinary && isCancel) {
-      setIsCancel(false);
+    if (dataCloudinary && isCreating) {
+      console.log('abro modal effect');
+      handleOpenModal();
     }
   }, [dataCloudinary]);
 
+  const handleCreateHistory = () => {
+    setisCreating(true);
+    handleOpen();
+  };
+
   const handleOpenModal = () => {
-    if (id === data.autor._id && !loading && !data.histories.length) {
-      handleOpen();
-    } else {
-      setIsOpenViewHistory(true);
-    }
+    console.log('abro modal');
+
+    setIsOpenViewHistory(true);
+  };
+  const handleCloseModal = () => {
+    console.log('cierro modal y creating');
+
+    setisCreating(false);
+    setIsOpenViewHistory(false);
   };
 
   return (
-    <div className="px-1">
-      <div onClick={handleOpenModal} className="cursor-pointer center relative">
+    <div>
+      <div
+        onClick={() => {
+          data.histories.length && handleOpenModal();
+        }}
+        className="cursor-pointer center relative"
+      >
         <div className="gradiante-historias center aspect-square p-[2px] rounded-full">
           <HeroImage url={data?.autor?.foto} className="w-[60px]" />
         </div>
-        {id === data.autor._id && data.histories.length === 0 && (
-          <div className="absolute bottom-0 right-0 aspect-square bg-fondoClaro rounded-full center">
+
+        {id === data.autor._id && (
+          <button
+            disabled={loading}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCreateHistory();
+            }}
+            className="absolute bottom-0 right-0 aspect-square bg-fondoClaro rounded-full center"
+          >
             <i className="fa-solid fa-circle-plus text-azul aspect-square w-6 h-6 center text-2xl"></i>
-          </div>
+          </button>
         )}
       </div>
       <div className="text-center mt-1 text-xs whitespace-nowrap text-ellipsis overflow-hidden max-w-[78px]">
         {data?.autor?.name}
       </div>
-      {dataCloudinary && !isCancel && (
-        <ModalHistory closeModal={() => setIsCancel(true)}>
-          <ContentHistoryModal
-            isCreating={true}
-            autor={data.autor}
-            url={dataCloudinary[0]}
-          />
-        </ModalHistory>
-      )}
+
       {isOpenViewHistory && (
-        <ModalHistory closeModal={() => setIsOpenViewHistory(false)}>
-          <ContentHistoryModal autor={data.autor} url={data.histories[0].url}>
-            <ContainerInputHistory
-              closeModal={() => setIsOpenViewHistory(false)}
-              url={data.histories[0].url}
-            />
+        <ModalHistory closeModal={handleCloseModal}>
+          <ContentHistoryModal
+            autor={data.autor}
+            isCreating={isCreating}
+            url={isCreating ? dataCloudinary[0] : data.histories[0]?.url}
+          >
+            {isCreating ? (
+              <ContainerInputHistory
+                closeModal={handleCloseModal}
+                url={isCreating ? dataCloudinary[0] : data.histories[0]?.url}
+              />
+            ) : (
+              <></>
+            )}
           </ContentHistoryModal>
         </ModalHistory>
       )}

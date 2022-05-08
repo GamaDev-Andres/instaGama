@@ -25,9 +25,8 @@ const CarouselHistories = ({ children }) => {
       autoPlay={false}
       autoPlaySpeed={5000}
       swipeable={true}
-      containerClass="w-full h-full"
+      containerClass="w-full h-full px-2"
       removeArrowOnDeviceType={['tablet', 'mobile']}
-      cust
       responsive={responsive}
     >
       {children}

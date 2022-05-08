@@ -109,17 +109,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const getHistoriesOfFollowing = useCallback(async () => {
-    try {
-      const historiesOfFollowing = await Promise.all(
-        state?.user?.following.map((el) => getHistoriesUser(el))
-      );
-      return historiesOfFollowing;
-    } catch (error) {
-      console.log(error);
-    }
-  }, [state]);
-
   const handleFollowUserSesion = useCallback((uid) => {
     dispatch({ type: authTypes.TOOGLE_FOLLOW, payload: uid });
   });
@@ -130,9 +119,9 @@ const AuthProvider = ({ children }) => {
       handleLogin,
       handleRegister,
       renovarToken,
-      getHistoriesOfFollowing,
       logOut,
       handleFollowUserSesion,
+      getHistoriesUser,
     }),
     [
       state,
@@ -140,8 +129,8 @@ const AuthProvider = ({ children }) => {
       handleRegister,
       renovarToken,
       logOut,
-      getHistoriesOfFollowing,
       handleFollowUserSesion,
+      getHistoriesUser,
     ]
   );
 

@@ -6,6 +6,7 @@ import ListOfPosts from '../../components/ListOfPosts';
 import Spinner from '../../components/Spinner';
 import { getPostsOfFollowing } from '../../services/getPostsOfFollowing';
 import Histories from './components/Histories';
+import HistoriesProvider from './context/HistoriesProvider';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -62,7 +63,9 @@ const Home = () => {
         <h1 className="font-black italic text-xl">InstaGama</h1>
       </Header>
       <div className="max-w-[600px] min-h-[calc(100vh-45px)] flex flex-col gap-0 sm:gap-8 mx-auto">
-        <Histories />
+        <HistoriesProvider>
+          <Histories />
+        </HistoriesProvider>
         {loading ? (
           <Spinner fullScreen={true} />
         ) : (

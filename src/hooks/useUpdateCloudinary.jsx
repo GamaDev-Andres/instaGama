@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { urlImgToFormatAuto } from '../adapters/urlImgToFormatAuto';
 import { optionsCloudinary } from '../utilities/cloudinaryWidget';
+import { useCallback, useEffect, useState } from 'react';
 
 const useUpdateCloudinary = (multiple) => {
   const [data, setData] = useState(null);
@@ -45,7 +46,11 @@ const useUpdateCloudinary = (multiple) => {
     };
   }, [open]);
 
-  return { data, loading, handleOpen };
+  return {
+    data: data?.map((url) => urlImgToFormatAuto(url)),
+    loading,
+    handleOpen,
+  };
 };
 
 export default useUpdateCloudinary;
