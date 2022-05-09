@@ -10,7 +10,7 @@ const Histories = () => {
     <div className="h-[110px] center sm:mt-8 border border-transparent sm:border sm:border-bordes sm:rounded-md sm:bg-fondoClaro">
       <CarouselHistories>
         {[historiesUser, ...histories]?.map((el) => (
-          <History data={el} key={el.autor._id} />
+          <History data={el} key={el.autor?.id || el.autor._id} />
         ))}
       </CarouselHistories>
     </div>

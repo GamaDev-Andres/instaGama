@@ -18,6 +18,9 @@ body{
   .center-col{
     @apply flex flex-col justify-center items-center;
   }
+  .bottom-unset{
+    bottom:unset !important;
+  }
 }
 @layer base{
 

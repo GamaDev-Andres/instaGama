@@ -13,7 +13,7 @@ const ModalHistory = ({ children, closeModal }) => {
 
   return ReactDom.createPortal(
     <div className="center fixed top-0 bottom-0 left-0 right-0 bg-negro z-50 text-fondoClaro">
-      <header className="flex justify-between items-center w-full fixed top-0 p-4 z-50">
+      <header className="flex justify-between items-center w-full fixed top-0 px-4 z-50">
         <h1 className="font-bold text-2xl">InstaGama</h1>
         <button onClick={closeModal} className="p-2">
           X

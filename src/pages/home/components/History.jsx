@@ -21,7 +21,6 @@ const History = ({ data }) => {
 
   useEffect(() => {
     if (dataCloudinary && isCreating) {
-      console.log('abro modal effect');
       handleOpenModal();
     }
   }, [dataCloudinary]);
@@ -32,13 +31,9 @@ const History = ({ data }) => {
   };
 
   const handleOpenModal = () => {
-    console.log('abro modal');
-
     setIsOpenViewHistory(true);
   };
   const handleCloseModal = () => {
-    console.log('cierro modal y creating');
-
     setisCreating(false);
     setIsOpenViewHistory(false);
   };
@@ -75,7 +70,7 @@ const History = ({ data }) => {
       {isOpenViewHistory && (
         <ModalHistory closeModal={handleCloseModal}>
           <ContentHistoryModal
-            autor={data.autor}
+            data={data}
             isCreating={isCreating}
             url={isCreating ? dataCloudinary[0] : data.histories[0]?.url}
           >

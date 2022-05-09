@@ -9,7 +9,6 @@ const DescriptionPost = ({ likes, descripcion = '' }) => {
     coments,
     autor: { userName, name },
   } = usePost();
-
   return (
     <div className="text-sm pb-2 px-4">
       <div className="font-semibold">
