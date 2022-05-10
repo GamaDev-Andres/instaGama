@@ -7,7 +7,7 @@ import useUser from '../../../hooks/useUser';
 import historiesContext from './historiesContext';
 
 const HistoriesProvider = ({ children }) => {
-  const { following } = useUser();
+  const { following, id } = useUser();
   const { getHistoriesUser } = useAuthContext();
   const [histories, setHistories] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -34,15 +34,23 @@ const HistoriesProvider = ({ children }) => {
   const getHistoriesOfFollowing = async () => {
     try {
       const historiesOfFollowing = await Promise.all(
-        following.map((el) => getHistoriesUser(el))
+        [id, ...following].map((el) => getHistoriesUser(el))
       );
       return historiesOfFollowing;
     } catch (error) {
       console.log(error);
     }
   };
-
-  const contextValue = { histories };
+  const addHistoryState = (history) => {
+    setHistories(
+      histories.map((hist) =>
+        hist.autor.id === id
+          ? { ...hist, histories: [...hist.histories, history] }
+          : hist
+      )
+    );
+  };
+  const contextValue = { histories, addHistoryState };
 
   if (!histories || loading) {
     return <Spinner />;

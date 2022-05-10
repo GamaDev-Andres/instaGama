@@ -55,7 +55,7 @@ const History = ({ data }) => {
           <HeroImage url={data?.autor?.foto} className="w-[60px]" />
         </div>
 
-        {id === data.autor._id && (
+        {id === data.autor.id && (
           <button
             disabled={loading}
             onClick={(e) => {
