@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+
 import HeroImage from '../../../components/HeroImage';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import useUpdateCloudinary from '../../../hooks/useUpdateCloudinary';
@@ -26,7 +27,7 @@ const History = ({ data }) => {
     if (dataCloudinary && isCreating && !loading) {
       handleOpenModal();
     }
-  }, [dataCloudinary]);
+  }, [dataCloudinary, loading, isCreating]);
 
   const handleCreateHistory = () => {
     setisCreating(true);

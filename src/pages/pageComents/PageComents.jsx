@@ -34,13 +34,15 @@ const PageComents = () => {
           <h1 className="font-semibold font-sans">Comenterios</h1>
         </div>
       </Header>
-      <div className="w-full bg-fondoGris p-2 center text-sm gap-4">
-        <HeroImage url={foto} className="w-[32px]" />
-        <ContainerInputComent />
+      <div className="flex flex-col flex-grow max-w-[935px] mx-auto w-full">
+        <div className="w-full bg-fondoGris p-2 center text-sm gap-4">
+          <HeroImage url={foto} className="w-[32px]" />
+          <ContainerInputComent />
+        </div>
+        <main className="flex flex-col flex-grow border-t border-bordes">
+          <ListoOfComents coments={coments} />
+        </main>
       </div>
-      <main className="flex flex-col flex-grow border-t border-bordes">
-        <ListoOfComents coments={coments} />
-      </main>
     </div>
   );
 };

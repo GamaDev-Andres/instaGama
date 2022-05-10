@@ -4,7 +4,7 @@ const GridPosts = () => {
   const outletContext = useOutletContext();
   const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-3 gap-1 md:gap-7 relative flex-grow">
+    <div className="grid grid-cols-3 gap-1 md:gap-7 relative flex-grow mb-[45px]">
       {outletContext?.posts.length === 0 ? (
         <div className="text-grisLetra font-bold text-center text-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4">
           Aún no tenemos publicaciones para mostrarte intenta seguir a otras

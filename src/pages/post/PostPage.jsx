@@ -31,7 +31,7 @@ const PostPage = () => {
       {loading || !data ? (
         <Spinner fullScreen={true} />
       ) : (
-        <main>
+        <main className="max-w-[935px] mx-auto">
           <PostProvider
             updatePost={handleUpdatePost}
             handleDeletePost={handleDeletePost}
