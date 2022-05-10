@@ -13,14 +13,17 @@ const History = ({ data }) => {
       user: { id },
     },
   } = useAuthContext();
-  const { data: dataCloudinary, loading, handleOpen } = useUpdateCloudinary();
+  const {
+    data: dataCloudinary,
+    loading,
+    handleOpen,
+    setData: setDataCloudinary,
+  } = useUpdateCloudinary();
   const [isOpenViewHistory, setIsOpenViewHistory] = useState(false);
   const [isCreating, setisCreating] = useState(false);
-  console.log(data);
-  console.log(dataCloudinary);
 
   useEffect(() => {
-    if (dataCloudinary && isCreating) {
+    if (dataCloudinary && isCreating && !loading) {
       handleOpenModal();
     }
   }, [dataCloudinary]);
@@ -36,6 +39,7 @@ const History = ({ data }) => {
   const handleCloseModal = () => {
     setisCreating(false);
     setIsOpenViewHistory(false);
+    setDataCloudinary(null);
   };
 
   return (

@@ -23,8 +23,6 @@ const responsive = {
   },
 };
 const ContentHistoryModal = ({ data, url, isCreating, children }) => {
-  console.log(data, url);
-  console.log(isCreating);
   return !isCreating ? (
     <Carousel
       autoPlay={true}
