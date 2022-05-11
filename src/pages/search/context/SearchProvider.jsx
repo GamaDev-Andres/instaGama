@@ -1,22 +1,67 @@
 import propTypes from 'prop-types';
-import { useReducer } from 'react';
-import useInput from '../../../hooks/useInput';
-import { searchTypes } from '../../../types/searchTypes';
-import searchContext from './searchContext';
-import searchReducer from './searchReducer';
-const initialState = {
-  busqueda: '',
-};
-const SearchProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(searchReducer, initialState);
-  const { reset, handleChange, input } = useInput();
+import { useMemo, useRef, useState } from 'react';
+import { createAutocomplete } from '@algolia/autocomplete-core';
 
-  const handleBusqueda = (value) => {
-    dispatch({ type: searchTypes.searchChangeBusqueda, payload: value });
+import searchContext from './searchContext';
+import { searchUsers } from '../../../services/searchUsers';
+
+const SearchProvider = ({ children }) => {
+  const [autoCompleteState, setAutoCompleteState] = useState({
+    collections: [],
+    isOpen: false,
+  });
+  const [searchesRecents, setSearchesRecents] = useState(
+    () => JSON.parse(localStorage.getItem('recents')) || []
+  );
+  const panelRef = useRef(null);
+  const inputRef = useRef(null);
+
+  const autoComplete = useMemo(
+    () =>
+      createAutocomplete({
+        onStateChange: ({ state }) => setAutoCompleteState(state),
+        getSources: () => [
+          {
+            sourceId: 'users-name',
+            getItems: ({ query }) => (query ? searchUsers(query) : null),
+          },
+        ],
+      }),
+    []
+  );
+
+  const addReceantSearch = (search) => {
+    localStorage.setItem(
+      'recents',
+      JSON.stringify([...searchesRecents, search])
+    );
+    setSearchesRecents([...searchesRecents, search]);
   };
+
+  const deleteAllReceantsSearches = () => {
+    localStorage.removeItem('recents');
+    setSearchesRecents([]);
+  };
+  const deleteOneSearch = (id) => {
+    localStorage.setItem(
+      'recents',
+      JSON.stringify(searchesRecents.filter((search) => search.id !== id))
+    );
+    setSearchesRecents(searchesRecents.filter((search) => search.id !== id));
+  };
+
   return (
     <searchContext.Provider
-      value={{ reset, handleChange, input, handleBusqueda, state }}
+      value={{
+        autoComplete,
+        panelRef,
+        autoCompleteState,
+        inputRef,
+        searchesRecents,
+        addReceantSearch,
+        deleteAllReceantsSearches,
+        deleteOneSearch,
+      }}
     >
       {children}
     </searchContext.Provider>

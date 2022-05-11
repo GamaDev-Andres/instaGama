@@ -1,23 +1,36 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react/cjs/react.development';
 import HeroImage from '../../../components/HeroImage';
+import searchContext from '../context/searchContext';
 
-const ResultSearch = ({ user, mode = 'search' }) => {
+const ResultSearch = ({ userName, foto, name, id, mode = 'search' }) => {
+  const navigate = useNavigate();
+  const { addReceantSearch, deleteOneSearch } = useContext(searchContext);
+  const handleRedirect = () => {
+    addReceantSearch({ userName, foto, name, id });
+    navigate(`/${userName}`);
+  };
+
   return (
     <div className="center px-4 py-2">
-      <Link className="center gap-2 px-4 py-2 w-full min-w-0" to={`/${user}/`}>
-        <HeroImage size={44} />
+      <button
+        className="center gap-2 px-4 py-2 w-full min-w-0"
+        onClick={handleRedirect}
+      >
+        <HeroImage url={foto} />
         <div className="flex flex-col min-w-0 w-full text-sm font-sans overflow-hidden">
-          <h3 className="font-semibold">{user}</h3>
-          <span className="text-grisLetra whitespace-nowrap text-ellipsis overflow-hidden block min-w-0">
-            descripcion de andre.gama Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Ad molestiae ullam corporis omnis laboriosam,
-            consequuntur aliquam autem nulla
+          <h3 className="font-semibold text-left">{userName}</h3>
+          <span className="text-grisLetra text-left whitespace-nowrap text-ellipsis overflow-hidden block min-w-0">
+            {name}
           </span>
         </div>
-      </Link>
+      </button>
       {mode === 'recent' && (
-        <button className=" text-grisLetra center px-4 ">
+        <button
+          onClick={() => deleteOneSearch(id)}
+          className=" text-grisLetra center px-4 "
+        >
           <i className="fa-solid fa-x"></i>
         </button>
       )}
@@ -26,7 +39,10 @@ const ResultSearch = ({ user, mode = 'search' }) => {
 };
 
 ResultSearch.propTypes = {
-  user: PropTypes.string.isRequired,
+  userName: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  foto: PropTypes.string,
   mode: PropTypes.string,
 };
 

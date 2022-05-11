@@ -1,13 +1,14 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useRef, useContext } from 'react';
+
 import { toArrPath } from '../../../utilities/toArrPath';
 import searchContext from '../context/searchContext';
 
 const ContainerInputSearch = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { reset, handleChange, input: inputSearch } = useContext(searchContext);
-
+  const formRef = useRef(null);
+  const { autoComplete, inputRef } = useContext(searchContext);
   const arrPathname = toArrPath(pathname);
   const isSearching = arrPathname[2];
 
@@ -15,22 +16,30 @@ const ContainerInputSearch = () => {
     navigate('searching');
   };
   const handleRedirectSearch = () => {
-    reset();
     navigate('/search');
   };
+  const formProps = autoComplete.getFormProps({
+    inputElement: inputRef.current,
+  });
+  const inputProps = autoComplete.getInputProps({
+    inputElement: inputRef.current,
+  });
   return (
     <div className="flex w-full px-4 gap-4">
       <div
         onClick={handleRedirectSearching}
         className="rounded flex-grow w-full relative"
       >
-        <input
-          onChange={handleChange}
-          value={inputSearch}
-          className="px-6 border focus:border focus:border-gray-400 appearance-none py-1 rounded w-full text-negro text-sm outline-none"
-          type="search"
-          placeholder={isSearching ? 'Busca' : ''}
-        />
+        <form {...formProps} ref={formRef}>
+          <input
+            ref={inputRef}
+            {...inputProps}
+            className="px-6 border focus:border focus:border-gray-400 appearance-none py-1 rounded w-full text-negro text-sm outline-none"
+            type="search"
+            placeholder={isSearching ? 'Busca' : ''}
+          />
+        </form>
+
         <div
           className={`absolute center gap-2 text-grisLetra text-sm transition-all duration-300 ${
             isSearching
@@ -43,15 +52,8 @@ const ContainerInputSearch = () => {
           </span>
           {!isSearching && <span>Busca</span>}
         </div>
-        {inputSearch !== '' && (
-          <button
-            onClick={reset}
-            className="absolute top-1/2 -translate-y-1/2 right-0 px-2"
-          >
-            <i className="fa-regular fa-circle-xmark"></i>
-          </button>
-        )}
       </div>
+
       {isSearching && (
         <button
           className="font-semibold font-sans text-sm"

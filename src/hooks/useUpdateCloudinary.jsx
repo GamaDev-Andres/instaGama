@@ -1,30 +1,35 @@
 import { urlImgToFormatAuto } from '../adapters/urlImgToFormatAuto';
 import { optionsCloudinary } from '../utilities/cloudinaryWidget';
 import { useCallback, useEffect, useState } from 'react';
+import { useMemo } from 'react/cjs/react.development';
 
 const useUpdateCloudinary = (multiple) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line no-undef
-  const widget = cloudinary.createUploadWidget(
-    optionsCloudinary(multiple),
-    (err, result) => {
-      if (!err) {
-        if (result.event === 'queues-end') {
-          const arrData = result.info.files;
-          const arrFotos = arrData.map((data) => {
-            return data.uploadInfo.secure_url;
-          });
-          setData(arrFotos);
+  const widget = useMemo(
+    () =>
+      // eslint-disable-next-line no-undef
+      cloudinary.createUploadWidget(
+        optionsCloudinary(multiple),
+        (err, result) => {
+          if (!err) {
+            if (result.event === 'queues-end') {
+              const arrData = result.info.files;
+              const arrFotos = arrData.map((data) => {
+                return data.uploadInfo.secure_url;
+              });
+              setData(arrFotos);
+            }
+            if (result.event === 'abort' || result.event === 'close') {
+              setLoading(false);
+            }
+          } else {
+            setLoading(false);
+            throw new Error('error subiendo archivos a clodinary');
+          }
         }
-        if (result.event === 'abort' || result.event === 'close') {
-          setLoading(false);
-        }
-      } else {
-        setLoading(false);
-        throw new Error('error subiendo archivos a clodinary');
-      }
-    }
+      ),
+    [multiple]
   );
 
   const handleOpen = useCallback(() => {

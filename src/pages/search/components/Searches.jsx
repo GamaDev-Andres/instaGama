@@ -1,19 +1,36 @@
 import { useContext } from 'react';
+
 import searchContext from '../context/searchContext';
 import Recents from './Recents';
 import ResultSearch from './ResultSearch';
 
 const Searches = () => {
-  const { input } = useContext(searchContext);
+  const { panelRef, autoCompleteState, autoComplete, inputRef } =
+    useContext(searchContext);
 
-  if (!input) {
+  if (!autoCompleteState.isOpen && !inputRef.current?.value) {
     return <Recents />;
   }
   return (
-    <div className="mt-2 max-w-[935px]">
-      {[1, 2, 3, 4, 5].map((el) => (
-        <ResultSearch user="andres.gama" key={el} />
-      ))}
+    <div
+      className="mt-2 max-w-[935px]"
+      {...autoComplete.getPanelProps}
+      ref={panelRef}
+    >
+      {autoCompleteState.collections.map((collection, i) => {
+        const { items } = collection;
+        return (
+          <div key={'section' + i}>
+            {items.length > 0 && (
+              <ul {...autoComplete.getListProps()}>
+                {items.map((item) => (
+                  <ResultSearch {...item} key={item.id} />
+                ))}
+              </ul>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
