@@ -8,8 +8,12 @@ const Post = () => {
   return (
     <article className="w-full bg-fondoClaro">
       <HeaderPost />
-      <div className="flex flex-col">
-        <img className="object-cover w-full select-none" src={url} alt="img" />
+      <div className="flex flex-col h-full">
+        <img
+          className="object-contain h-full max-h-[100vh] select-none"
+          src={url}
+          alt="img"
+        />
         <ActionsPost idPost={_id} haveMyLike={haveMyLike} />
       </div>
       <DescriptionPost likes={likes} descripcion={descripcion} />
