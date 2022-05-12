@@ -4,7 +4,6 @@ import History from './History';
 
 const Histories = () => {
   const { histories } = useHistoriesContext();
-
   return (
     <div className="h-[110px] center sm:mt-8 border border-transparent sm:border sm:border-bordes sm:rounded-md sm:bg-fondoClaro">
       <CarouselHistories>
