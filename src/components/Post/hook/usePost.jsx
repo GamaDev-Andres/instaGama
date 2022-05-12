@@ -4,7 +4,7 @@ import postContext from '../context/postContext';
 
 const usePost = () => {
   const context = useContext(postContext);
-  return context;
+  return { ...context };
 };
 
 export default usePost;
