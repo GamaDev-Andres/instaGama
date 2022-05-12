@@ -25,7 +25,7 @@ const ContainerInputSearch = () => {
     inputElement: inputRef.current,
   });
   return (
-    <div className="flex w-full px-4 gap-4">
+    <div className="flex w-full mx-4 gap-4 max-w-[935px]">
       <div
         onClick={handleRedirectSearching}
         className="rounded flex-grow w-full relative"

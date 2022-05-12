@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 import ButtonElipsis from './ButtonElipsis';
 import HeroImage from '../HeroImage';
 import useUser from '../../hooks/useUser';
@@ -11,11 +12,10 @@ const HeaderPost = () => {
     <header className="center p-4">
       <div className=" flex flex-grow h-full">
         <HeroImage url={autor.foto} />
-        <div className="flex flex-col ml-4 text-sm">
+        <div className="center ml-4 text-sm">
           <Link className="font-semibold" to={`/${autor.userName}`}>
             {autor.name}
           </Link>
-          <p className="text-grisLetra">villavicencio-colombia</p>
         </div>
       </div>
       {autor._id === id && (

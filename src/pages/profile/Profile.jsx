@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import { Helmet } from 'react-helmet-async';
 
 import Header from '../../components/Header';
 import DataProfile from './components/DataProfile';
@@ -13,6 +14,9 @@ const Profile = ({ children }) => {
 
   return (
     <div className="flex flex-col  bg-fondoClaro">
+      <Helmet>
+        <title>{`${userProfile.name}(${userProfile.userName})•Fotos de InstaGama`}</title>
+      </Helmet>
       <Header>
         <div className="center w-full relative">
           <button

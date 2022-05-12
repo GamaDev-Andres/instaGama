@@ -1,4 +1,6 @@
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import Header from '../../components/Header';
 import LeftArrowButton from '../../components/LeftArrowButton';
 import PostProvider from '../../components/Post/context/PostProvider';
@@ -19,7 +21,6 @@ const PostPage = () => {
   const handleLikePost = (post) => {
     setData(post);
   };
-
   return (
     <div>
       <Header>
@@ -32,6 +33,12 @@ const PostPage = () => {
         <Spinner fullScreen={true} />
       ) : (
         <main className="max-w-[935px] mx-auto">
+          <Helmet>
+            <title>{`${data.autor.name} en InstaGama ${
+              data.descripcion ? `:"${data.descripcion}"` : ''
+            }`}</title>
+          </Helmet>
+
           <PostProvider
             updatePost={handleUpdatePost}
             handleDeletePost={handleDeletePost}

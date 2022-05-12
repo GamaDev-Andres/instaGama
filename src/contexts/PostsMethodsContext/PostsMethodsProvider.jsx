@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useCallback, useMemo } from 'react/cjs/react.development';
+import { useCallback, useMemo } from 'react';
+
 import { customFetch } from '../../services/customFetch';
 import postsMethodsContext from './postsMethodsContext';
 

@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useContext } from 'react';
+
 import authContext from '../contexts/authContext/authContext';
 import NavBarPhone from '../components/NavBarPhone';
 import SocketProvider from '../contexts/socketContext/SocketProvider';

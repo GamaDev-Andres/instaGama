@@ -1,9 +1,15 @@
-import { useReducer, useCallback, useMemo } from 'react';
+import {
+  useReducer,
+  useCallback,
+  useMemo,
+  Suspense,
+  useEffect,
+  useRef,
+} from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { Suspense, useEffect, useRef } from 'react/cjs/react.development';
+
 import Spinner from '../../../components/Spinner';
 import { customFetch } from '../../../services/customFetch';
-
 import Profile from '../Profile';
 import { profileTypes } from '../types/profileTypes';
 import profileContext from './profileContext';

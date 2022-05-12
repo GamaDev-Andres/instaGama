@@ -1,4 +1,5 @@
-import { useContext } from 'react/cjs/react.development';
+import { useContext } from 'react';
+
 import historiesContext from '../context/historiesContext';
 
 const useHistoriesContext = () => {

@@ -1,17 +1,18 @@
 import propTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-import Spinner from '../../../components/Spinner';
-import { useAuthContext } from '../../../hooks/useAuthContext';
 
+import { useAuthContext } from '../../../hooks/useAuthContext';
+import Spinner from '../../../components/Spinner';
 import useUser from '../../../hooks/useUser';
 import historiesContext from './historiesContext';
 
 const HistoriesProvider = ({ children }) => {
-  const { following, id } = useUser();
+  const { following, id, name, userName, foto } = useUser();
   const { getHistoriesUser } = useAuthContext();
   const [histories, setHistories] = useState(null);
   const [loading, setLoading] = useState(false);
   const isMounted = useRef(true);
+
   useEffect(() => {
     setLoading(true);
     getHistoriesOfFollowing()
@@ -20,6 +21,12 @@ const HistoriesProvider = ({ children }) => {
           .filter((el) => el.length)
           .map((el) => ({ autor: el[0].autor, histories: el }));
         if (isMounted.current) {
+          if (histories[0]?.autor?.id !== id) {
+            histories.unshift({
+              autor: { id, name, foto, userName },
+              histories: [],
+            });
+          }
           setHistories(histories);
           setLoading(false);
         }

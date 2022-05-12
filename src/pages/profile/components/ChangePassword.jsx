@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react/cjs/react.development';
+import { useEffect, useRef, useState } from 'react';
+
 import { confirmPassword } from '../../../services/confirmPassword';
 import { isValidPassword } from '../../../utilities/validatorsForms';
 import useProfile from '../hook/useProfile';

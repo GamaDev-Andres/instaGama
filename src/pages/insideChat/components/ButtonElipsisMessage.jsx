@@ -1,11 +1,7 @@
 import propTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react/cjs/react.development';
+import { useContext, useEffect, useRef, useState } from 'react';
+
 import Modal from '../../../components/Modal';
 import Spinner from '../../../components/Spinner';
 import socketContext from '../../../contexts/socketContext/socketContext';
@@ -48,7 +44,7 @@ const ButtonElipsisMessage = ({ idMensaje, mensaje }) => {
       })
       .catch((err) => {
         setCopy(false);
-        console.log('Something went wrong', err);
+        console.error('Something went wrong', err);
       });
   };
   const handleDeleteMessage = async () => {

@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react/cjs/react.development';
+import { useEffect, useRef, useState } from 'react';
+
 import Modal from '../../../components/Modal';
 import Spinner from '../../../components/Spinner';
 import usePageComentContext from '../hook/usePageComentContext';
@@ -9,7 +10,6 @@ const ModalOptionsComent = ({ idComent, closeModal, openModalEditComent }) => {
   const { deleteComent } = usePageComentContext();
   const isMounted = useRef(true);
   const handleDeleteComent = async () => {
-    console.log('delete coment');
     setLoading(true);
     await deleteComent(idComent);
     if (isMounted.current) {

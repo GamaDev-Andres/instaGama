@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useContext } from 'react';
+
 import authContext from '../contexts/authContext/authContext';
 
 const PublicRoute = () => {

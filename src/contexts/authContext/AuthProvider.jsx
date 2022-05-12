@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useReducer, useCallback, useMemo } from 'react';
-// import { historiesToObject } from '../../adapters/historiesToObject';
 
 import { customFetch } from '../../services/customFetch';
 import { authTypes } from '../../types/authTypes';
@@ -27,11 +26,7 @@ const AuthProvider = ({ children }) => {
         return response?.msg || response?.errors[0]?.msg;
       }
       localStorage.setItem('token', response.token);
-      // const histories = await getHistoriesUser(response.usuario.id);
-      // response.usuario.histories = historiesToObject(
-      //   response.usuario,
-      //   histories
-      // );
+
       dispatch({
         type: authTypes.SET_USER,
         payload: { ...response.usuario, token: response.token },
@@ -54,11 +49,7 @@ const AuthProvider = ({ children }) => {
         return response?.msg || response?.errors[0]?.msg;
       }
       localStorage.setItem('token', response.token);
-      // const histories = await getHistoriesUser(response.usuario.id);
-      // response.usuario.histories = historiesToObject(
-      //   response.usuario,
-      //   histories
-      // );
+
       dispatch({
         type: authTypes.SET_USER,
         payload: { ...response.usuario, token: response.token },
@@ -75,11 +66,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
         return response?.msg || response?.errors[0]?.msg;
       }
-      // const histories = await getHistoriesUser(response.usuario.id);
-      // response.usuario.histories = historiesToObject(
-      //   response.usuario,
-      //   histories
-      // );
+
       dispatch({
         type: authTypes.SET_USER,
         payload: { ...response.usuario, token: response.token },

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import inboxContext from '../context/inboxContext';
 
 const useInboxContext = () => {

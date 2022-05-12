@@ -1,9 +1,8 @@
 import propTypes from 'prop-types';
-import { useRef, useState } from 'react';
-import { useEffect } from 'react/cjs/react.development';
+import { useRef, useState, useEffect } from 'react';
+
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { usePostMethods } from '../../hooks/usePostMethods';
-// import { usePostMethods } from '../../hooks/usePostMethods';
 import useUpdateCloudinary from '../../hooks/useUpdateCloudinary';
 import HeroImage from '../HeroImage';
 import Spinner from '../Spinner';

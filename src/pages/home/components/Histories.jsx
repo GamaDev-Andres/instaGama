@@ -1,9 +1,8 @@
-// import useUser from '../../../hooks/useUser';
 import useHistoriesContext from '../hooks/useHistoriesContext';
 import CarouselHistories from './CarouselHistories';
 import History from './History';
+
 const Histories = () => {
-  // const { histories: historiesUser } = useUser();
   const { histories } = useHistoriesContext();
 
   return (

@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+
 import ButtonElipsisMessage from './ButtonElipsisMessage';
 
 const Message = ({ own = false, data }) => {

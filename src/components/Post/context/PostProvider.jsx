@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useCallback } from 'react/cjs/react.development';
+import { useCallback } from 'react';
+
 import { usePostMethods } from '../../../hooks/usePostMethods';
 import useUser from '../../../hooks/useUser';
 import { customFetch } from '../../../services/customFetch';

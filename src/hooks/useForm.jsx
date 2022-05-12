@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useRef } from 'react/cjs/react.development';
+import { useState, useEffect, useRef } from 'react';
 
 const useForm = (dataInitial, serviceSubmit) => {
   const [dataForm, setDataForm] = useState(dataInitial);

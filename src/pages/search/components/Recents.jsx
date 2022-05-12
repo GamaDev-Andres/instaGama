@@ -1,4 +1,5 @@
-import { useContext } from 'react/cjs/react.development';
+import { useContext } from 'react';
+
 import searchContext from '../context/searchContext';
 import ResultSearch from './ResultSearch';
 
@@ -26,8 +27,6 @@ const Recents = () => {
       {searchesRecents.map((search) => (
         <ResultSearch key={search.id} mode="recent" {...search} />
       ))}
-
-      {/* <ResultSearch mode="recent" user="andres.gama" /> */}
     </div>
   );
 };

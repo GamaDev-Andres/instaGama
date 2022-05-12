@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import { useOutletContext } from 'react-router-dom';
+
 import useProfile from '../pages/profile/hook/useProfile';
 import PostProvider from './Post/context/PostProvider';
 import Post from './Post/Post';

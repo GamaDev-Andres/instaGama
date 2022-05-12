@@ -1,11 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import { useReducer, useEffect, useMemo, useRef } from 'react';
-import inboxContext from './inboxContext';
-import { inboxReducer } from './inboxReducer';
+import {
+  useReducer,
+  useEffect,
+  useMemo,
+  useRef,
+  useCallback,
+  useContext,
+} from 'react';
 
+import { inboxReducer } from './inboxReducer';
+import inboxContext from './inboxContext';
 import { customFetch } from '../../../services/customFetch';
 import { inboxTypes } from '../types/inboxTypes';
-import { useCallback, useContext } from 'react/cjs/react.development';
 import socketContext from '../../../contexts/socketContext/socketContext';
 
 const initialState = { chats: null };

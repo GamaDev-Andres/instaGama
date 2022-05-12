@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 import ReactDom from 'react-dom';
-import { useEffect } from 'react/cjs/react.development';
+import { useEffect } from 'react';
 
 const ModalHistory = ({ children, closeModal }) => {
   useEffect(() => {

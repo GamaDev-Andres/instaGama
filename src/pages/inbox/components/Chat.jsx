@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import { dateToMs } from '../../../adapters/dateToMs';
 import HeroImage from '../../../components/HeroImage';
 import { timeAgo } from '../../../utilities/timeAgo';

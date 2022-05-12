@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
+
 import { useAuthContext } from '../hooks/useAuthContext';
 import Modal from './Modal';
 import ModalFormPost from './Post/ModalFormPost';
@@ -21,11 +22,11 @@ const NavBarPhone = () => {
   };
   return (
     <nav className="center fixed bottom-0 left-0 w-screen bg-fondoClaro h-11 border-t border-bordes">
-      <div className="flex w-full h-full">
-        <Link className="center flex-grow " to="/">
+      <div className="flex w-full h-full max-w-[935px] mx-auto">
+        <Link title="home" className="center flex-grow " to="/">
           <i className="fa-solid fa-house w-6 h-6 text-xl center"></i>
         </Link>
-        <Link className="center flex-grow " to="/search">
+        <Link title="search" className="center flex-grow " to="/search">
           <i className="fa-solid fa-magnifying-glass w-6 h-6 text-xl center"></i>
         </Link>
         <button
@@ -35,10 +36,10 @@ const NavBarPhone = () => {
         >
           <i className="fa-solid fa-circle-plus w-6 h-6 text-xl center"></i>{' '}
         </button>
-        <Link className="center flex-grow " to="/inbox">
+        <Link title="chats" className="center flex-grow " to="/inbox">
           <i className="fa-solid fa-message w-6 h-6 text-xl center"></i>{' '}
         </Link>
-        <Link className="center flex-grow " to={`/${userName}`}>
+        <Link title="perfil" className="center flex-grow " to={`/${userName}`}>
           <i className="fa-solid fa-user w-6 h-6 text-xl center"></i>
         </Link>
       </div>

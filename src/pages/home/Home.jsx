@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useRef } from 'react/cjs/react.development';
+import { useCallback, useEffect, useState, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import Header from '../../components/Header';
 import ListOfPosts from '../../components/ListOfPosts';
@@ -58,26 +58,31 @@ const Home = () => {
   );
 
   return (
-    <main className="min-h-screen">
-      <Header>
-        <h1 className="font-black italic text-xl">InstaGama</h1>
-      </Header>
-      <div className="max-w-[600px] min-h-[calc(100vh-45px)] flex flex-col gap-0 sm:gap-8 mx-auto">
-        <HistoriesProvider>
-          <Histories />
-        </HistoriesProvider>
-        {loading ? (
-          <Spinner fullScreen={true} />
-        ) : (
-          <ListOfPosts
-            arrPosts={posts}
-            handleDeletePost={handleDeletePost}
-            handleLikePost={handleLikePost}
-            handleUpdatePost={handleUpdatePost}
-          />
-        )}
-      </div>
-    </main>
+    <>
+      <Helmet>
+        <title>InstaGama</title>
+      </Helmet>
+      <main className="min-h-screen">
+        <Header>
+          <h1 className="font-black italic text-xl">InstaGama</h1>
+        </Header>
+        <div className="max-w-[935px] min-h-[calc(100vh-45px)] flex flex-col gap-0 sm:gap-8 mx-auto">
+          <HistoriesProvider>
+            <Histories />
+          </HistoriesProvider>
+          {loading ? (
+            <Spinner fullScreen={true} />
+          ) : (
+            <ListOfPosts
+              arrPosts={posts}
+              handleDeletePost={handleDeletePost}
+              handleLikePost={handleLikePost}
+              handleUpdatePost={handleUpdatePost}
+            />
+          )}
+        </div>
+      </main>
+    </>
   );
 };
 

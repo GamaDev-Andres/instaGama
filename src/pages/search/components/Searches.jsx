@@ -13,7 +13,7 @@ const Searches = () => {
   }
   return (
     <div
-      className="mt-2 max-w-[935px]"
+      className="mx-auto max-w-[935px]"
       {...autoComplete.getPanelProps}
       ref={panelRef}
     >

@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
+
 import HeroImage from '../../../components/HeroImage';
 import ModalChangePhoto from './ModalChangePhoto';
 

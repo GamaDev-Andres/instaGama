@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useState, useMemo } from 'react';
+
 import { urlImgToFormatAuto } from '../adapters/urlImgToFormatAuto';
 import { optionsCloudinary } from '../utilities/cloudinaryWidget';
-import { useCallback, useEffect, useState } from 'react';
-import { useMemo } from 'react/cjs/react.development';
 
 const useUpdateCloudinary = (multiple) => {
   const [data, setData] = useState(null);

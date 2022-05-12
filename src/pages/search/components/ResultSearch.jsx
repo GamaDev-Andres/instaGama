@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react/cjs/react.development';
+import { useContext } from 'react';
+
 import HeroImage from '../../../components/HeroImage';
 import searchContext from '../context/searchContext';
 
@@ -18,7 +19,7 @@ const ResultSearch = ({ userName, foto, name, id, mode = 'search' }) => {
         className="center gap-2 px-4 py-2 w-full min-w-0"
         onClick={handleRedirect}
       >
-        <HeroImage url={foto} />
+        <HeroImage url={foto} className="w-[44px]" />
         <div className="flex flex-col min-w-0 w-full text-sm font-sans overflow-hidden">
           <h3 className="font-semibold text-left">{userName}</h3>
           <span className="text-grisLetra text-left whitespace-nowrap text-ellipsis overflow-hidden block min-w-0">

@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
+
 import ModalEditComent from './ModalEditComent';
 import ModalOptionsComent from './ModalOptionsComent';
 

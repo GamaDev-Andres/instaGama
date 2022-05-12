@@ -7,7 +7,7 @@ const Coment = ({ texto, name, username }) => {
       <div className="break-all">
         <Link to={`/${username}`} className="font-semibold mr-2">
           {name}
-        </Link>{' '}
+        </Link>
         {texto}
       </div>
     </div>

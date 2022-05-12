@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
+
 import HeroImage from '../../../components/HeroImage';
 import Modal from '../../../components/Modal';
 import useUpdateCloudinary from '../../../hooks/useUpdateCloudinary';
@@ -16,6 +17,7 @@ const ModalChangePhoto = ({ handleCloseModal }) => {
     loading,
     handleOpen: handleOpenCloudinary,
   } = useUpdateCloudinary();
+
   useEffect(() => {
     if (data) {
       updateUser({ foto: data[0] });

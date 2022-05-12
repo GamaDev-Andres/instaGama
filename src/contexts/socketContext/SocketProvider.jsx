@@ -1,7 +1,8 @@
-import socketContext from './socketContext';
 import { io } from 'socket.io-client';
 import propTypes from 'prop-types';
 import { useEffect } from 'react';
+
+import socketContext from './socketContext';
 import useUser from '../../hooks/useUser';
 
 const socket = io(import.meta.env.VITE_URL_SERVER);

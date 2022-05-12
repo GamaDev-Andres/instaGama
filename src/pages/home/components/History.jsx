@@ -49,27 +49,27 @@ const History = ({ data }) => {
         onClick={() => {
           data.histories.length && handleOpenModal();
         }}
-        className="cursor-pointer center relative"
+        className="cursor-pointer center-col"
       >
-        <div className="gradiante-historias center aspect-square p-[2px] rounded-full">
+        <div className="relative gradiante-historias center aspect-square p-[2px] rounded-full">
           <HeroImage url={data?.autor?.foto} className="w-[60px]" />
+          {id === data.autor.id && (
+            <button
+              title="Crear historia"
+              disabled={loading}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCreateHistory();
+              }}
+              className="absolute bottom-0 right-0 aspect-square bg-fondoClaro rounded-full center"
+            >
+              <i className="fa-solid fa-circle-plus text-azul aspect-square w-6 h-6 center text-2xl"></i>
+            </button>
+          )}
         </div>
-
-        {id === data.autor.id && (
-          <button
-            disabled={loading}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleCreateHistory();
-            }}
-            className="absolute bottom-0 right-0 aspect-square bg-fondoClaro rounded-full center"
-          >
-            <i className="fa-solid fa-circle-plus text-azul aspect-square w-6 h-6 center text-2xl"></i>
-          </button>
-        )}
-      </div>
-      <div className="text-center mt-1 text-xs whitespace-nowrap text-ellipsis overflow-hidden max-w-[78px]">
-        {data?.autor?.name}
+        <div className="text-center mt-1 text-xs whitespace-nowrap text-ellipsis overflow-hidden max-w-[78px]">
+          {data?.autor?.name}
+        </div>
       </div>
 
       {isOpenViewHistory && (

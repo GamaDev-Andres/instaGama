@@ -1,5 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useContext, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+
 import Header from '../../components/Header';
 import Spinner from '../../components/Spinner';
 import useInboxContext from '../inbox/hook/useInboxContext';
@@ -49,6 +51,9 @@ const InsideChat = () => {
   }
   return (
     <div className="flex flex-col min-h-screen flex-grow">
+      <Helmet>
+        <title>InstaGama • Chats</title>
+      </Helmet>
       <Header>
         <HeaderChat chatCurrent={chatCurrent} />
       </Header>

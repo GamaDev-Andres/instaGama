@@ -1,4 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
+
 import { toArrPath } from '../../../utilities/toArrPath';
 
 const OptionsOfView = () => {

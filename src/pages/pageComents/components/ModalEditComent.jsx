@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
+
 import Modal from '../../../components/Modal';
 import usePageComentContext from '../hook/usePageComentContext';
 

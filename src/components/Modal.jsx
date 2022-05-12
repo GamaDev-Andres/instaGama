@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { useEffect } from 'react/cjs/react.development';
+import { useEffect } from 'react';
 
 const Modal = ({ children, closeModal }) => {
   useEffect(() => {

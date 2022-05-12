@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
+import { useState } from 'react';
+
 import useUser from '../../../hooks/useUser';
 import useProfile from '../hook/useProfile';
 import { useAuthContext } from '../../../hooks/useAuthContext';
-import { useState } from 'react/cjs/react.development';
 import ButtonEditProfile from './ButtonEditProfile';
 import ButtonHeroImageProfile from './ButtonHeroImageProfile';
 
