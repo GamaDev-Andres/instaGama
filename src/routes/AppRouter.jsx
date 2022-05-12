@@ -18,7 +18,7 @@ const ProfileProvider = lazy(() =>
   import('../pages/profile/context/ProfileProvider')
 );
 const InboxProvider = lazy(() =>
-  import('../pages/inbox/context/inboxProvider')
+  import('../pages/inbox/context/InboxProvider')
 );
 const Searches = lazy(() => import('../pages/search/components/Searches'));
 const Home = lazy(() => import('../pages/home/Home'));
