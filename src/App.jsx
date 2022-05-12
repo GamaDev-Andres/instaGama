@@ -1,6 +1,6 @@
 import { HelmetProvider } from 'react-helmet-async';
 
-import AuthProvider from './contexts/authContext/authProvider';
+import AuthProvider from './contexts/authContext/AuthProvider';
 import PostsMethodsProvider from './contexts/PostsMethodsContext/PostsMethodsProvider';
 import AppRouter from './routes/AppRouter';
 
