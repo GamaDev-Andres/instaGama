@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { dateToMs } from '../../adapters/dateToMs';
 
 import Header from '../../components/Header';
 import ListOfPosts from '../../components/ListOfPosts';
@@ -18,11 +19,13 @@ const Home = () => {
     getPostsOfFollowing().then((res) => {
       if (isMounted.current) {
         setPosts(
-          res.posts.map((el) => {
-            const { id, ...post } = el;
-            post._id = id;
-            return post;
-          })
+          res.posts
+            .map((el) => {
+              const { id, ...post } = el;
+              post._id = id;
+              return post;
+            })
+            .sort((a, b) => dateToMs(b.createdAt) - dateToMs(a.createdAt))
         );
         setLoading(false);
       }

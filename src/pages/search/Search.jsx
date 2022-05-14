@@ -8,10 +8,10 @@ import SearchProvider from './context/SearchProvider';
 const Search = () => {
   return (
     <SearchProvider>
-      <Helmet>
-        <title>InstaGama</title>
-      </Helmet>
       <div className="bg-fondoClaro min-h-screen">
+        <Helmet>
+          <title>InstaGama</title>
+        </Helmet>
         <Header>
           <ContainerInputSearch />
         </Header>
