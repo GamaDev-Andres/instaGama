@@ -18,12 +18,14 @@ const DescriptionPost = ({ likes, descripcion = '' }) => {
         {likes && ` Me gusta${likes > 1 ? 's' : ''}`}
       </div>
       <div>
-        <span>
-          <Link to={`/${userName}`} className="font-semibold">
-            {name}
-          </Link>{' '}
-          {descripcion.length > 150 ? descripcion.slice(0, 150) : descripcion}
-        </span>
+        {descripcion.length > 0 && (
+          <span>
+            <Link to={`/${userName}`} className="font-semibold">
+              {name}
+            </Link>{' '}
+            {descripcion.length > 150 ? descripcion.slice(0, 150) : descripcion}
+          </span>
+        )}
         {descripcion.length > 150 && (
           <span>
             ...&nbsp;<button className="text-grisLetra">más</button>
@@ -40,7 +42,7 @@ const DescriptionPost = ({ likes, descripcion = '' }) => {
           ))}
         </div>
         <div>
-          {coments.length > 0 && (
+          {coments.length > 2 && (
             <Link
               to={`/coments/${_id}`}
               className="text-grisLetra font-semibold"

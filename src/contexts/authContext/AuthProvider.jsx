@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
       const urlPeticion = url + '/api/auth';
       const response = await customFetch(urlPeticion, 'GET');
       if (response?.msg || response?.errors) {
-        localStorage.removeItem('token');
+        logOut();
         return response?.msg || response?.errors[0]?.msg;
       }
 
@@ -79,6 +79,7 @@ const AuthProvider = ({ children }) => {
   const logOut = useCallback(() => {
     if (state.user) {
       localStorage.removeItem('token');
+      localStorage.removeItem('recents');
       dispatch({ type: authTypes.LOG_OUT });
     }
   }, [state.user]);
