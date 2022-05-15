@@ -31,6 +31,9 @@ const SearchProvider = ({ children }) => {
   );
 
   const addReceantSearch = (search) => {
+    if (searchesRecents.some((el) => el.id === search.id)) {
+      return;
+    }
     localStorage.setItem(
       'recents',
       JSON.stringify([...searchesRecents, search])

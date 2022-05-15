@@ -79,7 +79,6 @@ const AuthProvider = ({ children }) => {
   const logOut = useCallback(() => {
     if (state.user) {
       localStorage.removeItem('token');
-      localStorage.removeItem('recents');
       dispatch({ type: authTypes.LOG_OUT });
     }
   }, [state.user]);
